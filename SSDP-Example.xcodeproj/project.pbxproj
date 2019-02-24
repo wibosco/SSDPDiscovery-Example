@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1026ABCE675A85F69A318252 /* Pods_SSDP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6461E27D867A2CD63D5D3D0 /* Pods_SSDP_Example.framework */; };
+		3D564DC72219F55A00BEE287 /* SSDPSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC42219F55A00BEE287 /* SSDPSearchResponse.swift */; };
+		3D564DC82219F55A00BEE287 /* SSDPDeviceSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC52219F55A00BEE287 /* SSDPDeviceSearcher.swift */; };
+		3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */; };
+		3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */; };
+		3D564DCE2219F7DD00BEE287 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DCD2219F7DD00BEE287 /* Result.swift */; };
 		3DD8DF902219CFBD00F92FCC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF852219CFBD00F92FCC /* LaunchScreen.storyboard */; };
 		3DD8DF912219CFBD00F92FCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF872219CFBD00F92FCC /* Main.storyboard */; };
 		3DD8DF922219CFBD00F92FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */; };
@@ -28,6 +33,11 @@
 
 /* Begin PBXFileReference section */
 		057EFE53D5342BFFA9121E15 /* Pods-SSDP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSDP-Example.debug.xcconfig"; path = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3D564DC42219F55A00BEE287 /* SSDPSearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchResponse.swift; sourceTree = "<group>"; };
+		3D564DC52219F55A00BEE287 /* SSDPDeviceSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPDeviceSearcher.swift; sourceTree = "<group>"; };
+		3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSession.swift; sourceTree = "<group>"; };
+		3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfiguration.swift; sourceTree = "<group>"; };
+		3D564DCD2219F7DD00BEE287 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		3DD8DF862219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DD8DF882219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +71,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D564DC32219F50A00BEE287 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3D564DC52219F55A00BEE287 /* SSDPDeviceSearcher.swift */,
+				3D564DC42219F55A00BEE287 /* SSDPSearchResponse.swift */,
+				3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */,
+				3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		3D564DCC2219F79F00BEE287 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3D564DCD2219F7DD00BEE287 /* Result.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3DD8DF842219CFBD00F92FCC /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,8 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				3DD8DF8B2219CFBD00F92FCC /* Application */,
+				3D564DC32219F50A00BEE287 /* Networking */,
 				3DD8DF892219CFBD00F92FCC /* Resources */,
 				3DD8DF842219CFBD00F92FCC /* Storyboards */,
+				3D564DCC2219F79F00BEE287 /* Utilities */,
 				3DD8DF8E2219CFBD00F92FCC /* ViewControllers */,
 			);
 			path = "SSDP-Example";
@@ -305,6 +336,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD8DF952219CFBD00F92FCC /* ViewController.swift in Sources */,
+				3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */,
+				3D564DC72219F55A00BEE287 /* SSDPSearchResponse.swift in Sources */,
+				3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */,
+				3D564DCE2219F7DD00BEE287 /* Result.swift in Sources */,
+				3D564DC82219F55A00BEE287 /* SSDPDeviceSearcher.swift in Sources */,
 				3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

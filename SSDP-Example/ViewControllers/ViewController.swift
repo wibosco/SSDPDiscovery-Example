@@ -8,13 +8,57 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
+    
+    @IBOutlet var searchButton: UIButton!
+    @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView!
+    
+    private var searcher: SSDPDeviceSearcher?
+    
+    // MARK: - ViewLifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 2, searchTimeout: 6, possibleSearchBroadcasts: 3)
+        searcher = SSDPDeviceSearcher(configuration: config)
+        searcher?.delegate = self
     }
 
-
+    // MARK: - ButtonActions
+    
+    @IBAction func searchButtonPressed(_ sender: Any) {
+        toggleSearchingUI()
+        searcher?.startSearch()
+    }
+    
+    private func toggleSearchingUI() {
+        DispatchQueue.main.async {
+            self.searchButton.isHidden.toggle()
+            
+            if self.searchingActivityIndicator.isAnimating {
+                self.searchingActivityIndicator.stopAnimating()
+            } else {
+                self.searchingActivityIndicator.startAnimating()
+            }
+        }
+    }
+    
+    // MARK: - SSDPDeviceSearcherDelegate
+    
+    func didFailSearch(with error: SSDPDeviceSearcherError) {
+        toggleSearchingUI()
+    }
+    
+    func didFindDevice(_ response: SSDPSearchResponse) {
+        //Respond to found device
+    }
+    
+    func didStopSearching() {
+        toggleSearchingUI()
+    }
+    
+    func didTimeout() {
+        toggleSearchingUI()
+    }
 }
-
