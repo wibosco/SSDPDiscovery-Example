@@ -10,8 +10,8 @@ import Foundation
 
 struct SSDPSearchSessionConfiguration {
     let searchTarget: String
-    let host: String = "239.255.255.250"
-    let port: UInt = 1900
+    let host: String = "239.255.255.250" // override this to unicast
+    let port: UInt = 1900 // override this to unicast
     let maximumWaitResponseTime: TimeInterval
     let searchTimeout: TimeInterval
     let possibleSearchBroadcasts: UInt

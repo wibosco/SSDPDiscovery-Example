@@ -22,7 +22,9 @@ class SSDPSearchSession {
     private let configuration: SSDPSearchSessionConfiguration
     private var isListening = false
     private var responseHandler: SSDPResponseHandler?
-    private var respondedDevices: [SSDPSearchResponse]
+    private var respondedDevices = [SSDPSearchResponse]()
+    private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue", attributes: .concurrent)
+    private let processingQueue = DispatchQueue(label: "com.williamboles.processingqueue")
     
     // MARK: - Init
     
@@ -32,7 +34,6 @@ class SSDPSearchSession {
         }
         self.socket = socket
         self.configuration = configuration
-        self.respondedDevices = [SSDPSearchResponse]()
     }
     
     // MARK: - Broadcast
@@ -45,12 +46,11 @@ class SSDPSearchSession {
     }
     
     private func broadcastMultipleMulticastSearchRequests() {
-        let queue = DispatchQueue.global(qos: .userInitiated)
         let broadcastWindow = configuration.searchTimeout - configuration.maximumWaitResponseTime
         let strideInterval = broadcastWindow / TimeInterval(configuration.possibleSearchBroadcasts)
         
         for interval in stride(from: 0.0, to: broadcastWindow, by: strideInterval) {
-            queue.asyncAfter(deadline: .now() + interval, execute: { [weak self] in
+            searchQueue.asyncAfter(deadline: .now() + interval, execute: { [weak self] in
                 self?.writeDatagramToSocket()
             })
         }
@@ -66,7 +66,7 @@ class SSDPSearchSession {
         
         do {
             let multicastSearchMessage = self.multicastSearchMessage()
-            os_log(.info, "Writing SSDP M-Search request: %{public}@", multicastSearchMessage)
+            os_log(.info, "Writing SSDP M-Search request: \r%{public}@", multicastSearchMessage)
             try socket.write(from: multicastSearchMessage, to: address)
         } catch {
             handleError(error)
@@ -76,8 +76,8 @@ class SSDPSearchSession {
     private func multicastSearchMessage() -> String {
         // Each line must end in `\r\n`
         return "M-SEARCH * HTTP/1.1\r\n" +
-            "MAN: \"ssdp:discover\"\r\n" +
             "HOST: \(configuration.host):\(configuration.port)\r\n" +
+            "MAN: \"ssdp:discover\"\r\n" +
             "ST: \(configuration.searchTarget)\r\n" +
         "MX: \(Int(configuration.maximumWaitResponseTime))\r\n\r\n"
     }
@@ -85,8 +85,7 @@ class SSDPSearchSession {
     // MARK: - Read
     
     private func prepareSocketForResponses() {
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async() { [weak self] in
+        searchQueue.async() { [weak self] in
             self?.isListening = true
             self?.readResponse() // contains blocking call
         }
@@ -103,18 +102,20 @@ class SSDPSearchSession {
             var data = Data()
             let (bytesRead, _) = try socket.readDatagram(into: &data) //blocking call
             
-            guard bytesRead > 0,
-                let searchResponse = SSDPSearchResponse(data: data),
-                (searchResponse.searchTarget.contains(configuration.searchTarget) || configuration.searchTarget == "ssdp:all"),
-                !respondedDevices.contains(searchResponse) else {
-                    return
+            processingQueue.sync {
+                guard bytesRead > 0,
+                    let searchResponse = SSDPSearchResponse(data: data),
+                    (searchResponse.searchTarget.contains(configuration.searchTarget) || configuration.searchTarget == "ssdp:all"),
+                    !respondedDevices.contains(searchResponse) else {
+                        return
+                }
+                
+                os_log(.info, "Recieved unique SSDP response: \r%{public}@", String(describing: searchResponse))
+                
+                respondedDevices.append(searchResponse)
+                
+                responseHandler?(Result.success(searchResponse))
             }
-            
-            os_log(.info, "Recieved unique SSDP response: %{public}@", String(describing: searchResponse))
-            
-            respondedDevices.append(searchResponse)
-            
-            responseHandler?(Result.success(searchResponse))
         } catch {
             if isListening {
                 handleError(error)
@@ -132,6 +133,7 @@ class SSDPSearchSession {
     // MARK: - Close
     
     func close() {
+        os_log(.info, "SSDP search session is closing")
         isListening = false
         socket.close()
         responseHandler = nil

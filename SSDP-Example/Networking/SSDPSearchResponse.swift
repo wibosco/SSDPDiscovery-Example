@@ -113,4 +113,14 @@ struct SSDPSearchResponse: Equatable {
         
         return url
     }
+    
+    // MARK: - Equatable
+    
+    static func == (lhs: SSDPSearchResponse, rhs: SSDPSearchResponse) -> Bool {
+        return lhs.location == rhs.location &&
+            lhs.server == rhs.server &&
+            lhs.searchTarget == rhs.searchTarget &&
+            lhs.usn == rhs.usn &&
+            lhs.otherHeaders == rhs.otherHeaders
+    }
 }

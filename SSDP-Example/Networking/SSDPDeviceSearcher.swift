@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os
 
 protocol SSDPDeviceSearcherDelegate {
     func didFailSearch(with error: SSDPDeviceSearcherError)
@@ -46,6 +47,8 @@ class SSDPDeviceSearcher {
             return
         }
         
+        os_log(.info, "Starting SSDP search")
+        
         guard let socket = SSDPSearchSession(configuration: configuration) else {
             self.delegate?.didFailSearch(with: SSDPDeviceSearcherError.unableToCreateSocket)
             return
@@ -72,6 +75,7 @@ class SSDPDeviceSearcher {
     
     private func searchTimedOut() {
         if isSearching {
+            os_log(.info, "SSDP search timed out")
             destroySocket()
             delegate?.didTimeout()
         }
@@ -85,6 +89,7 @@ class SSDPDeviceSearcher {
     }
     
     func stopSearch() {
+        os_log(.info, "Stopping SSDP search")
         destroySocket()
         delegate?.didStopSearching()
     }
