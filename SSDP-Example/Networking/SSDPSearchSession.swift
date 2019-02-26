@@ -25,6 +25,8 @@ class SSDPSearchSession {
     private var respondedDevices = [SSDPSearchResponse]()
     private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue", attributes: .concurrent)
     private let processingQueue = DispatchQueue(label: "com.williamboles.processingqueue")
+    private var broadcastTimer: Timer?
+    private var finalBroadcastTimer: Timer?
     
     // MARK: - Init
     
@@ -46,14 +48,17 @@ class SSDPSearchSession {
     }
     
     private func broadcastMultipleMulticastSearchRequests() {
-        let broadcastWindow = configuration.searchTimeout - configuration.maximumWaitResponseTime
-        let strideInterval = broadcastWindow / TimeInterval(configuration.possibleSearchBroadcasts)
+        let broadcastTimeInterval = configuration.maximumWaitResponseTime
+        broadcastTimer = Timer.scheduledTimer(withTimeInterval: broadcastTimeInterval, repeats: true, block: { [weak self] (timer) in
+            self?.writeDatagramToSocket()
+        })
+        broadcastTimer?.fire()
         
-        for interval in stride(from: 0.0, to: broadcastWindow, by: strideInterval) {
-            searchQueue.asyncAfter(deadline: .now() + interval, execute: { [weak self] in
-                self?.writeDatagramToSocket()
-            })
-        }
+        let finalBroadcastTimeInterval = configuration.searchTimeout - configuration.maximumWaitResponseTime
+        finalBroadcastTimer = Timer.scheduledTimer(withTimeInterval: finalBroadcastTimeInterval, repeats: false, block: { [weak self] (timer) in
+            self?.finalBroadcastTimer?.invalidate()
+            self?.broadcastTimer?.invalidate()
+        })
     }
     
     // MARK: Write
@@ -110,8 +115,6 @@ class SSDPSearchSession {
                         return
                 }
                 
-                os_log(.info, "Recieved unique SSDP response: \r%{public}@", String(describing: searchResponse))
-                
                 respondedDevices.append(searchResponse)
                 
                 responseHandler?(Result.success(searchResponse))
@@ -134,6 +137,10 @@ class SSDPSearchSession {
     
     func close() {
         os_log(.info, "SSDP search session is closing")
+        finalBroadcastTimer?.invalidate()
+        finalBroadcastTimer = nil
+        broadcastTimer?.invalidate()
+        broadcastTimer = nil
         isListening = false
         socket.close()
         responseHandler = nil

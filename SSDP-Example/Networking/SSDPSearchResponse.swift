@@ -36,6 +36,8 @@ struct SSDPSearchResponse: Equatable {
             return nil
         }
         
+        os_log(.info, "Recieved SSDP response: \r%{public}@", responseString)
+        
         var responseDict = SSDPSearchResponse.parseResponseIntoDictionary(responseString)
 
         guard let cacheControl = SSDPSearchResponse.parseCacheControl(responseDict[SSDPSearchResponseKey.cacheControl.rawValue]),

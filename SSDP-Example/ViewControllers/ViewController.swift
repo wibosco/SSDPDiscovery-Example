@@ -20,7 +20,7 @@ class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 2, searchTimeout: 6, possibleSearchBroadcasts: 3)
+        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 2, searchTimeout: 8)
         searcher = SSDPDeviceSearcher(configuration: config)
         searcher?.delegate = self
     }
@@ -52,6 +52,7 @@ class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
     
     func didFindDevice(_ response: SSDPSearchResponse) {
         //Respond to found device
+//        searcher?.stopSearch()
     }
     
     func didStopSearching() {

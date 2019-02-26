@@ -24,6 +24,7 @@ enum SSDPDeviceSearcherError: Error {
 class SSDPDeviceSearcher {
     private var socket: SSDPSearchSession?
     private let configuration: SSDPSearchSessionConfiguration
+    private var timeoutTimer: Timer?
     
     var delegate: SSDPDeviceSearcherDelegate?
     var isSearching: Bool {
@@ -57,10 +58,11 @@ class SSDPDeviceSearcher {
         self.socket = socket
         
         self.socket?.broadcastMulticastSearch(responseHandler: processBroadcastResponse)
-        let queue = DispatchQueue.global(qos: .userInteractive)
-        queue.asyncAfter(deadline: .now() + configuration.searchTimeout) { [weak self] in
+
+        timeoutTimer = Timer.scheduledTimer(withTimeInterval: configuration.searchTimeout, repeats: false, block: { [weak self] (timer) in
             self?.searchTimedOut()
-        }
+            timer.invalidate()
+        })
     }
     
     private func processBroadcastResponse(_ result: Result<SSDPSearchResponse, SSDPSearchSessionError>) {
@@ -91,6 +93,8 @@ class SSDPDeviceSearcher {
     func stopSearch() {
         os_log(.info, "Stopping SSDP search")
         destroySocket()
+        timeoutTimer?.invalidate()
+        timeoutTimer = nil
         delegate?.didStopSearching()
     }
 }
