@@ -15,7 +15,7 @@ private enum SSDPSearchResponseKey: String {
     case location = "LOCATION"
     case server = "SERVER"
     case searchTarget = "ST"
-    case usn = "USN"
+    case uniqueServiceName = "USN"
 }
 
 struct SSDPSearchResponse: Equatable {
@@ -24,7 +24,7 @@ struct SSDPSearchResponse: Equatable {
     let location: URL
     let server: String
     let searchTarget: String
-    let usn: String
+    let uniqueServiceName: String
     let otherHeaders: [String: String]
     
     private static let dateFormatter = DateFormatter()
@@ -44,7 +44,7 @@ struct SSDPSearchResponse: Equatable {
             let location = SSDPSearchResponse.parseLocation(responseDict[SSDPSearchResponseKey.location.rawValue]),
             let server = responseDict[SSDPSearchResponseKey.server.rawValue],
             let searchTarget = responseDict[SSDPSearchResponseKey.searchTarget.rawValue],
-            let usn = responseDict[SSDPSearchResponseKey.usn.rawValue] else {
+            let uniqueServiceName = responseDict[SSDPSearchResponseKey.uniqueServiceName.rawValue] else {
                 return nil
         }
         
@@ -60,8 +60,8 @@ struct SSDPSearchResponse: Equatable {
         self.searchTarget = searchTarget
         responseDict.removeValue(forKey: SSDPSearchResponseKey.searchTarget.rawValue)
         
-        self.usn = usn
-        responseDict.removeValue(forKey: SSDPSearchResponseKey.usn.rawValue)
+        self.uniqueServiceName = uniqueServiceName
+        responseDict.removeValue(forKey: SSDPSearchResponseKey.uniqueServiceName.rawValue)
         
         self.date = SSDPSearchResponse.parseDate(responseDict[SSDPSearchResponseKey.date.rawValue])
         responseDict.removeValue(forKey: SSDPSearchResponseKey.date.rawValue)
@@ -122,7 +122,7 @@ struct SSDPSearchResponse: Equatable {
         return lhs.location == rhs.location &&
             lhs.server == rhs.server &&
             lhs.searchTarget == rhs.searchTarget &&
-            lhs.usn == rhs.usn &&
+            lhs.uniqueServiceName == rhs.uniqueServiceName &&
             lhs.otherHeaders == rhs.otherHeaders
     }
 }

@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
-    
+class SSDPDiscoveryViewController: UIViewController, SSDPDeviceSearcherDelegate, UITableViewDataSource {
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet var tableView: UITableView!
     
     private var searcher: SSDPDeviceSearcher?
+    
+    private var responses = [SSDPSearchResponse]()
     
     // MARK: - ViewLifecycle
     
@@ -28,6 +30,8 @@ class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
     // MARK: - ButtonActions
     
     @IBAction func searchButtonPressed(_ sender: Any) {
+        responses.removeAll()
+        tableView.reloadData()
         toggleSearchingUI()
         searcher?.startSearch()
     }
@@ -51,8 +55,10 @@ class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
     }
     
     func didFindDevice(_ response: SSDPSearchResponse) {
-        //Respond to found device
-//        searcher?.stopSearch()
+        DispatchQueue.main.async {
+            self.responses.append(response)
+            self.tableView.reloadData()
+        }
     }
     
     func didStopSearching() {
@@ -61,5 +67,20 @@ class ViewController: UIViewController, SSDPDeviceSearcherDelegate {
     
     func didTimeout() {
         toggleSearchingUI()
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return responses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let response = responses[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SSDPResponseTableViewCell", for: indexPath) as! SSDPResponseTableViewCell
+        cell.configure(response)
+        
+        return cell
     }
 }

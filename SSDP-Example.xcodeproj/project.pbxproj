@@ -13,11 +13,12 @@
 		3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */; };
 		3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */; };
 		3D564DCE2219F7DD00BEE287 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DCD2219F7DD00BEE287 /* Result.swift */; };
+		3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */; };
 		3DD8DF902219CFBD00F92FCC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF852219CFBD00F92FCC /* LaunchScreen.storyboard */; };
 		3DD8DF912219CFBD00F92FCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF872219CFBD00F92FCC /* Main.storyboard */; };
 		3DD8DF922219CFBD00F92FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */; };
 		3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8C2219CFBD00F92FCC /* AppDelegate.swift */; };
-		3DD8DF952219CFBD00F92FCC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8F2219CFBD00F92FCC /* ViewController.swift */; };
+		3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8F2219CFBD00F92FCC /* SSDPDiscoveryViewController.swift */; };
 		3DF3EA6722182AB90020C93D /* SSDP_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3EA6622182AB90020C93D /* SSDP_ExampleTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,12 +39,13 @@
 		3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSession.swift; sourceTree = "<group>"; };
 		3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfiguration.swift; sourceTree = "<group>"; };
 		3D564DCD2219F7DD00BEE287 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPResponseTableViewCell.swift; sourceTree = "<group>"; };
 		3DD8DF862219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DD8DF882219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD8DF8C2219CFBD00F92FCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DD8DF8D2219CFBD00F92FCC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3DD8DF8F2219CFBD00F92FCC /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3DD8DF8F2219CFBD00F92FCC /* SSDPDiscoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPDiscoveryViewController.swift; sourceTree = "<group>"; };
 		3DF3EA4E22182AB80020C93D /* SSDP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSDP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF3EA6222182AB90020C93D /* SSDP-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SSDP-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF3EA6622182AB90020C93D /* SSDP_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDP_ExampleTests.swift; sourceTree = "<group>"; };
@@ -119,7 +121,8 @@
 		3DD8DF8E2219CFBD00F92FCC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3DD8DF8F2219CFBD00F92FCC /* ViewController.swift */,
+				3DD8DF8F2219CFBD00F92FCC /* SSDPDiscoveryViewController.swift */,
+				3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -335,12 +338,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DD8DF952219CFBD00F92FCC /* ViewController.swift in Sources */,
+				3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */,
 				3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */,
 				3D564DC72219F55A00BEE287 /* SSDPSearchResponse.swift in Sources */,
 				3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */,
 				3D564DCE2219F7DD00BEE287 /* Result.swift in Sources */,
 				3D564DC82219F55A00BEE287 /* SSDPDeviceSearcher.swift in Sources */,
+				3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */,
 				3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
