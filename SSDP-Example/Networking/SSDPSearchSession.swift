@@ -50,9 +50,10 @@ class SSDPSearchSession {
     }
     
     private func broadcastMultipleMulticastSearchRequests() {
+        let searchMessage = self.searchMessage()
         let broadcastTimeInterval = configuration.maximumWaitResponseTime
         broadcastTimer = Timer.scheduledTimer(withTimeInterval: broadcastTimeInterval, repeats: true, block: { [weak self] (timer) in
-            self?.writeDatagramToSocket()
+            self?.writeToSocket(searchMessage)
         })
         broadcastTimer?.fire()
         
@@ -65,22 +66,21 @@ class SSDPSearchSession {
     
     // MARK: Write
     
-    private func writeDatagramToSocket() {
+    private func writeToSocket(_ datagram: String) {
         guard let address = Socket.createAddress(for: configuration.host, on: Int32(configuration.port)) else {
             handleError(SSDPSearchSessionError.addressCreationFailure)
             return
         }
         
         do {
-            let multicastSearchMessage = self.multicastSearchMessage()
-            os_log(.info, "Writing SSDP M-Search request: \r%{public}@", multicastSearchMessage)
-            try socket.write(from: multicastSearchMessage, to: address)
+            os_log(.info, "Writing datagram to socket: \r%{public}@", datagram)
+            try socket.write(from: datagram, to: address)
         } catch {
             handleError(error)
         }
     }
     
-    private func multicastSearchMessage() -> String {
+    private func searchMessage() -> String {
         // Each line must end in `\r\n`
         return "M-SEARCH * HTTP/1.1\r\n" +
             "HOST: \(configuration.host):\(configuration.port)\r\n" +
@@ -132,7 +132,6 @@ class SSDPSearchSession {
         os_log(.error, "SSDP discovery error: %{public}@", error.localizedDescription)
         stop()
         let wrappedError = SSDPSearchSessionError.searchAborted(error)
-        
         delegate?.didStopSearch(with: wrappedError)
     }
     
