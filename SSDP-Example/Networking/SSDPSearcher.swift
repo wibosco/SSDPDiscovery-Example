@@ -9,7 +9,7 @@
 import Foundation
 import os
 
-protocol SSDPSearcherDelegate {
+protocol SSDPSearcherDelegate: class {
     func didStopSearch(with error: SSDPSearcherError)
     func didReceiveSearchResponse(_ response: SSDPSearchResponse)
     func didTimeout()
@@ -25,7 +25,7 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
     private let configuration: SSDPSearchSessionConfiguration
     private var timeoutTimer: Timer?
     
-    var delegate: SSDPSearcherDelegate?
+    weak var delegate: SSDPSearcherDelegate?
     var isSearching: Bool {
         return searchSession != nil
     }
