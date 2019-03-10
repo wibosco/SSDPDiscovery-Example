@@ -9,26 +9,25 @@
 import Foundation
 import os
 
-protocol SSDPDeviceSearcherDelegate {
-    func didFailSearch(with error: SSDPDeviceSearcherError)
-    func didFindDevice(_ response: SSDPSearchResponse)
-    func didStopSearching()
+protocol SSDPSearcherDelegate {
+    func didStopSearch(with error: SSDPSearcherError)
+    func didReceiveSearchResponse(_ response: SSDPSearchResponse)
     func didTimeout()
 }
 
-enum SSDPDeviceSearcherError: Error {
-    case unableToCreateSocket
+enum SSDPSearcherError: Error {
+    case unableToOpenSearchSession
     case searchFailed(Error)
 }
 
-class SSDPDeviceSearcher {
-    private var socket: SSDPSearchSession?
+class SSDPSearcher: SSDPSearchSessionDelegate {
+    private var searchSession: SSDPSearchSession?
     private let configuration: SSDPSearchSessionConfiguration
     private var timeoutTimer: Timer?
     
-    var delegate: SSDPDeviceSearcherDelegate?
+    var delegate: SSDPSearcherDelegate?
     var isSearching: Bool {
-        return socket != nil
+        return searchSession != nil
     }
     
     // MARK: - Lifecycle
@@ -38,7 +37,7 @@ class SSDPDeviceSearcher {
     }
     
     deinit {
-        destroySocket()
+        stopExistingSearchSession()
     }
     
     // MARK: - Search
@@ -50,14 +49,14 @@ class SSDPDeviceSearcher {
         
         os_log(.info, "Starting SSDP search")
         
-        guard let socket = SSDPSearchSession(configuration: configuration) else {
-            self.delegate?.didFailSearch(with: SSDPDeviceSearcherError.unableToCreateSocket)
+        guard let searchSession = SSDPSearchSession(configuration: configuration) else {
+            self.delegate?.didStopSearch(with: SSDPSearcherError.unableToOpenSearchSession)
             return
         }
         
-        self.socket = socket
-        
-        self.socket?.broadcastMulticastSearch(responseHandler: processBroadcastResponse)
+        self.searchSession = searchSession
+        self.searchSession?.delegate = self
+        self.searchSession?.start()
 
         timeoutTimer = Timer.scheduledTimer(withTimeInterval: configuration.searchTimeout, repeats: false, block: { [weak self] (timer) in
             self?.searchTimedOut()
@@ -65,36 +64,36 @@ class SSDPDeviceSearcher {
         })
     }
     
-    private func processBroadcastResponse(_ result: Result<SSDPSearchResponse, SSDPSearchSessionError>) {
-        switch result {
-        case .failure(let error):
-            delegate?.didFailSearch(with: SSDPDeviceSearcherError.searchFailed(error))
-            destroySocket()
-        case .success(let response):
-            delegate?.didFindDevice(response)
-        }
-    }
-    
     private func searchTimedOut() {
         if isSearching {
             os_log(.info, "SSDP search timed out")
-            destroySocket()
+            stopExistingSearchSession()
             delegate?.didTimeout()
         }
     }
     
+    // MARK: - SSDPSearchSessionDelegate
+    
+    func didReceiveSearchResponse(_ response: SSDPSearchResponse) {
+        delegate?.didReceiveSearchResponse(response)
+    }
+    
+    func didStopSearch(with error: SSDPSearchSessionError) {
+        delegate?.didStopSearch(with: SSDPSearcherError.searchFailed(error))
+        stopExistingSearchSession()
+    }
+    
     // MARK: - Stop
     
-    private func destroySocket() {
-        socket?.close()
-        socket = nil
+    private func stopExistingSearchSession() {
+        searchSession?.stop()
+        searchSession = nil
     }
     
     func stopSearch() {
         os_log(.info, "Stopping SSDP search")
-        destroySocket()
+        stopExistingSearchSession()
         timeoutTimer?.invalidate()
         timeoutTimer = nil
-        delegate?.didStopSearching()
     }
 }

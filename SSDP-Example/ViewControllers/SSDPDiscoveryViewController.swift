@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SSDPDiscoveryViewController: UIViewController, SSDPDeviceSearcherDelegate, UITableViewDataSource {
+class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITableViewDataSource {
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
     
-    private var searcher: SSDPDeviceSearcher?
+    private var searcher: SSDPSearcher?
     
     private var responses = [SSDPSearchResponse]()
     
@@ -23,7 +23,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPDeviceSearcherDelegate,
         super.viewDidLoad()
         
         let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 2, searchTimeout: 8)
-        searcher = SSDPDeviceSearcher(configuration: config)
+        searcher = SSDPSearcher(configuration: config)
         searcher?.delegate = self
     }
 
@@ -50,19 +50,15 @@ class SSDPDiscoveryViewController: UIViewController, SSDPDeviceSearcherDelegate,
     
     // MARK: - SSDPDeviceSearcherDelegate
     
-    func didFailSearch(with error: SSDPDeviceSearcherError) {
+    func didStopSearch(with error: SSDPSearcherError) {
         toggleSearchingUI()
     }
     
-    func didFindDevice(_ response: SSDPSearchResponse) {
+    func didReceiveSearchResponse(_ response: SSDPSearchResponse) {
         DispatchQueue.main.async {
             self.responses.append(response)
             self.tableView.reloadData()
         }
-    }
-    
-    func didStopSearching() {
-        toggleSearchingUI()
     }
     
     func didTimeout() {

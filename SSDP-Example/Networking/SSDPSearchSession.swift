@@ -15,13 +15,17 @@ enum SSDPSearchSessionError: Error {
     case searchAborted(Error)
 }
 
+protocol SSDPSearchSessionDelegate: class {
+    func didReceiveSearchResponse(_ response: SSDPSearchResponse)
+    func didStopSearch(with error: SSDPSearchSessionError)
+}
+
 class SSDPSearchSession {
-    typealias SSDPResponseHandler = (Result<SSDPSearchResponse, SSDPSearchSessionError>) -> Void
+    weak var delegate: SSDPSearchSessionDelegate?
     
     private let socket: Socket
     private let configuration: SSDPSearchSessionConfiguration
     private var isListening = false
-    private var responseHandler: SSDPResponseHandler?
     private var respondedDevices = [SSDPSearchResponse]()
     private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue", attributes: .concurrent)
     private let processingQueue = DispatchQueue(label: "com.williamboles.processingqueue")
@@ -40,9 +44,7 @@ class SSDPSearchSession {
     
     // MARK: - Broadcast
     
-    func broadcastMulticastSearch(responseHandler: @escaping SSDPResponseHandler) {
-        self.responseHandler = responseHandler
-        
+    func start() {
         prepareSocketForResponses()
         broadcastMultipleMulticastSearchRequests()
     }
@@ -117,7 +119,7 @@ class SSDPSearchSession {
                 
                 respondedDevices.append(searchResponse)
                 
-                responseHandler?(Result.success(searchResponse))
+                delegate?.didReceiveSearchResponse(searchResponse)
             }
         } catch {
             if isListening {
@@ -128,14 +130,15 @@ class SSDPSearchSession {
     
     private func handleError(_ error: Error) {
         os_log(.error, "SSDP discovery error: %{public}@", error.localizedDescription)
-        close()
+        stop()
         let wrappedError = SSDPSearchSessionError.searchAborted(error)
-        responseHandler?(Result.failure(wrappedError))
+        
+        delegate?.didStopSearch(with: wrappedError)
     }
     
-    // MARK: - Close
+    // MARK: - Stop
     
-    func close() {
+    func stop() {
         os_log(.info, "SSDP search session is closing")
         finalBroadcastTimer?.invalidate()
         finalBroadcastTimer = nil
@@ -143,6 +146,5 @@ class SSDPSearchSession {
         broadcastTimer = nil
         isListening = false
         socket.close()
-        responseHandler = nil
     }
 }
