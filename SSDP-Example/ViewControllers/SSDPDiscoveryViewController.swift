@@ -15,7 +15,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     
     private var searcher: SSDPSearcher?
     
-    private var responses = [SSDPSearchResponse]()
+    private var responses = [SSDPService]()
     
     // MARK: - ViewLifecycle
     
@@ -50,18 +50,18 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     
     // MARK: - SSDPDeviceSearcherDelegate
     
-    func didStopSearch(with error: SSDPSearcherError) {
+    func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError) {
         toggleSearchingUI()
     }
     
-    func didReceiveSearchResponse(_ response: SSDPSearchResponse) {
+    func searcher(_ searcher: SSDPSearcher, didReceiveSearchResponse response: SSDPService) {
         DispatchQueue.main.async {
             self.responses.append(response)
             self.tableView.reloadData()
         }
     }
     
-    func didTimeout() {
+    func searcherDidStopSearch(_ searcher: SSDPSearcher) {
         toggleSearchingUI()
     }
     

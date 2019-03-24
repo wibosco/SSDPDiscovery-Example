@@ -10,9 +10,9 @@ import Foundation
 import os
 
 protocol SSDPSearcherDelegate: class {
-    func didStopSearch(with error: SSDPSearcherError)
-    func didReceiveSearchResponse(_ response: SSDPSearchResponse)
-    func didTimeout()
+    func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError)
+    func searcher(_ searcher: SSDPSearcher, didReceiveSearchResponse response: SSDPService)
+    func searcherDidStopSearch(_ searcher: SSDPSearcher)
 }
 
 enum SSDPSearcherError: Error {
@@ -50,13 +50,13 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
         os_log(.info, "Starting SSDP search")
         
         guard let searchSession = SSDPSearchSession(configuration: configuration) else {
-            self.delegate?.didStopSearch(with: SSDPSearcherError.unableToOpenSearchSession)
+            delegate?.searcher(self, didAbortWithError: SSDPSearcherError.unableToOpenSearchSession)
             return
         }
         
         self.searchSession = searchSession
         self.searchSession?.delegate = self
-        self.searchSession?.start()
+        self.searchSession?.startSearch()
 
         timeoutTimer = Timer.scheduledTimer(withTimeInterval: configuration.searchTimeout, repeats: false, block: { [weak self] (timer) in
             self?.searchTimedOut()
@@ -65,35 +65,35 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
     }
     
     private func searchTimedOut() {
-        if isSearching {
-            os_log(.info, "SSDP search timed out")
-            stopExistingSearchSession()
-            delegate?.didTimeout()
-        }
-    }
-    
-    // MARK: - SSDPSearchSessionDelegate
-    
-    func didReceiveSearchResponse(_ response: SSDPSearchResponse) {
-        delegate?.didReceiveSearchResponse(response)
-    }
-    
-    func didStopSearch(with error: SSDPSearchSessionError) {
-        delegate?.didStopSearch(with: SSDPSearcherError.searchFailed(error))
+        os_log(.info, "SSDP search timed out")
         stopExistingSearchSession()
     }
     
-    // MARK: - Stop
-    
     private func stopExistingSearchSession() {
-        searchSession?.stop()
+        searchSession?.stopSearch()
         searchSession = nil
+        timeoutTimer?.invalidate()
+        timeoutTimer = nil
     }
     
     func stopSearch() {
         os_log(.info, "Stopping SSDP search")
         stopExistingSearchSession()
-        timeoutTimer?.invalidate()
-        timeoutTimer = nil
+    }
+    
+    // MARK: - SSDPSearchSessionDelegate
+    
+    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError) {
+        delegate?.searcher(self, didAbortWithError: SSDPSearcherError.searchFailed(error))
+        stopExistingSearchSession()
+    }
+    
+    func searchSession(_ searchSession: SSDPSearchSession, didReceiveSearchResponse response: SSDPService) {
+        delegate?.searcher(self, didReceiveSearchResponse: response)
+    }
+    
+    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession) {
+        stopExistingSearchSession()
+        delegate?.searcherDidStopSearch(self)
     }
 }

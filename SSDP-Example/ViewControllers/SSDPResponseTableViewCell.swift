@@ -11,7 +11,6 @@ import Foundation
 
 class SSDPResponseTableViewCell: UITableViewCell {
     @IBOutlet var cacheControlValueLabel: UILabel!
-    @IBOutlet var dateValueLabel: UILabel!
     @IBOutlet var locationValueLabel: UILabel!
     @IBOutlet var serverValueLabel: UILabel!
     @IBOutlet var searchTargetValueLabel: UILabel!
@@ -32,7 +31,6 @@ class SSDPResponseTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         cacheControlValueLabel.text = nil
-        dateValueLabel.text = nil
         locationValueLabel.text = nil
         serverValueLabel.text = nil
         searchTargetValueLabel.text = nil
@@ -42,13 +40,8 @@ class SSDPResponseTableViewCell: UITableViewCell {
     
     // MARK: - Configure
     
-    func configure(_ response: SSDPSearchResponse) {
+    func configure(_ response: SSDPService) {
         cacheControlValueLabel.text = SSDPResponseTableViewCell.dateFormatter.string(from: response.cacheControl)
-        if let date = response.date {
-            dateValueLabel.text = SSDPResponseTableViewCell.dateFormatter.string(from: date)
-        } else {
-            dateValueLabel.text = "NOT PROVIDED"
-        }
         locationValueLabel.text = response.location.absoluteString
         serverValueLabel.text = response.server
         searchTargetValueLabel.text = response.searchTarget
