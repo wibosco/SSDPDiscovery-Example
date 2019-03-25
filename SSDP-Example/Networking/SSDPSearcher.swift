@@ -11,7 +11,7 @@ import os
 
 protocol SSDPSearcherDelegate: class {
     func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError)
-    func searcher(_ searcher: SSDPSearcher, didReceiveSearchResponse response: SSDPService)
+    func searcher(_ searcher: SSDPSearcher, didFindService service: SSDPService)
     func searcherDidStopSearch(_ searcher: SSDPSearcher)
 }
 
@@ -58,15 +58,10 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
         self.searchSession?.delegate = self
         self.searchSession?.startSearch()
 
-        timeoutTimer = Timer.scheduledTimer(withTimeInterval: configuration.searchTimeout, repeats: false, block: { [weak self] (timer) in
-            self?.searchTimedOut()
-            timer.invalidate()
+        timeoutTimer = Timer.scheduledTimer(withTimeInterval: (configuration.searchTimeout + 0.1), repeats: false, block: { [weak self] (timer) in
+            os_log(.info, "SSDP search timed out")
+            self?.stopExistingSearchSession()
         })
-    }
-    
-    private func searchTimedOut() {
-        os_log(.info, "SSDP search timed out")
-        stopExistingSearchSession()
     }
     
     private func stopExistingSearchSession() {
@@ -84,16 +79,27 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
     // MARK: - SSDPSearchSessionDelegate
     
     func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError) {
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
         delegate?.searcher(self, didAbortWithError: SSDPSearcherError.searchFailed(error))
         stopExistingSearchSession()
     }
     
-    func searchSession(_ searchSession: SSDPSearchSession, didReceiveSearchResponse response: SSDPService) {
-        delegate?.searcher(self, didReceiveSearchResponse: response)
+    func searchSession(_ searchSession: SSDPSearchSession, didFindService service: SSDPService) {
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
+        delegate?.searcher(self, didFindService: service)
     }
     
     func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession) {
-        stopExistingSearchSession()
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
         delegate?.searcherDidStopSearch(self)
     }
 }

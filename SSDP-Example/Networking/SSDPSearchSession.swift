@@ -17,7 +17,7 @@ enum SSDPSearchSessionError: Error {
 
 protocol SSDPSearchSessionDelegate: class {
     func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError)
-    func searchSession(_ searchSession: SSDPSearchSession, didReceiveSearchResponse response: SSDPService)
+    func searchSession(_ searchSession: SSDPSearchSession, didFindService service: SSDPService)
     func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession)
 }
 
@@ -28,10 +28,8 @@ class SSDPSearchSession {
     private let configuration: SSDPSearchSessionConfiguration
     private var isListening = false
     private var servicesFoundDuringSearch = [SSDPService]()
-    private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue", attributes: .concurrent)
-    private let processingQueue = DispatchQueue(label: "com.williamboles.processingqueue")
+    private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue")
     private var broadcastTimer: Timer?
-    private var finalBroadcastTimer: Timer?
     
     // MARK: - Init
     
@@ -61,8 +59,6 @@ class SSDPSearchSession {
         guard isListening else {
             return
         }
-        finalBroadcastTimer?.invalidate()
-        finalBroadcastTimer = nil
         broadcastTimer?.invalidate()
         broadcastTimer = nil
         isListening = false
@@ -85,17 +81,10 @@ class SSDPSearchSession {
     
     private func broadcastMultipleSearchRequests() {
         let searchMessage = self.searchMessage()
-        let broadcastTimeInterval = configuration.maximumWaitResponseTime
-        broadcastTimer = Timer.scheduledTimer(withTimeInterval: broadcastTimeInterval, repeats: true, block: { [weak self] (timer) in
+        broadcastTimer = Timer.scheduledTimer(withTimeInterval: configuration.maximumWaitResponseTime, repeats: true, block: { [weak self] (timer) in
             self?.writeToSocket(searchMessage)
         })
         broadcastTimer?.fire()
-        
-        let finalBroadcastTimeInterval = configuration.searchTimeout - configuration.maximumWaitResponseTime
-        finalBroadcastTimer = Timer.scheduledTimer(withTimeInterval: finalBroadcastTimeInterval, repeats: false, block: { [weak self] (timer) in
-            self?.finalBroadcastTimer?.invalidate()
-            self?.broadcastTimer?.invalidate()
-        })
     }
     
     private func writeToSocket(_ datagram: String) {
@@ -144,18 +133,22 @@ class SSDPSearchSession {
             
             guard bytesRead > 0,
                 let service = SSDPServiceParser.parse(data),
-                (service.searchTarget.contains(configuration.searchTarget) || configuration.searchTarget == "ssdp:all" ),
+                searchedForService(service),
                 !servicesFoundDuringSearch.contains(service) else {
                     return
             }
             
             servicesFoundDuringSearch.append(service)
             
-            delegate?.searchSession(self, didReceiveSearchResponse: service)
+            delegate?.searchSession(self, didFindService: service)
         } catch {
             if isListening {
                 handleError(error)
             }
         }
+    }
+    
+    private func searchedForService(_ service: SSDPService) -> Bool {
+        return service.searchTarget.contains(configuration.searchTarget) || configuration.searchTarget == "ssdp:all"
     }
 }

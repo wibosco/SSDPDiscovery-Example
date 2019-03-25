@@ -15,7 +15,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     
     private var searcher: SSDPSearcher?
     
-    private var responses = [SSDPService]()
+    private var servicesFound = [SSDPService]()
     
     // MARK: - ViewLifecycle
     
@@ -30,7 +30,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     // MARK: - ButtonActions
     
     @IBAction func searchButtonPressed(_ sender: Any) {
-        responses.removeAll()
+        servicesFound.removeAll()
         tableView.reloadData()
         toggleSearchingUI()
         searcher?.startSearch()
@@ -54,9 +54,9 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
         toggleSearchingUI()
     }
     
-    func searcher(_ searcher: SSDPSearcher, didReceiveSearchResponse response: SSDPService) {
+    func searcher(_ searcher: SSDPSearcher, didFindService service: SSDPService) {
         DispatchQueue.main.async {
-            self.responses.append(response)
+            self.servicesFound.append(service)
             self.tableView.reloadData()
         }
     }
@@ -68,11 +68,11 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return responses.count
+        return servicesFound.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let response = responses[indexPath.row]
+        let response = servicesFound[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SSDPResponseTableViewCell", for: indexPath) as! SSDPResponseTableViewCell
         cell.configure(response)
