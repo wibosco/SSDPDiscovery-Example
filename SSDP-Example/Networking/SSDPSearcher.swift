@@ -9,10 +9,10 @@
 import Foundation
 import os
 
-protocol SSDPSearcherDelegate: class {
-    func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError)
+protocol SSDPSearcherObserver: class {
     func searcher(_ searcher: SSDPSearcher, didFindService service: SSDPService)
-    func searcherDidStopSearch(_ searcher: SSDPSearcher)
+    func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError)
+    func searcherDidStopSearch(_ searcher: SSDPSearcher, foundServices: [SSDPService])
 }
 
 enum SSDPSearcherError: Error {
@@ -23,9 +23,8 @@ enum SSDPSearcherError: Error {
 class SSDPSearcher: SSDPSearchSessionDelegate {
     private var searchSession: SSDPSearchSession?
     private let configuration: SSDPSearchSessionConfiguration
-    private var timeoutTimer: Timer?
+    private let observers = NSHashTable<AnyObject>.weakObjects()
     
-    weak var delegate: SSDPSearcherDelegate?
     var isSearching: Bool {
         return searchSession != nil
     }
@@ -40,6 +39,36 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
         stopExistingSearchSession()
     }
     
+    // MARK: - Observers
+    
+    func add(observer: SSDPSearcherObserver) {
+        if !observers.contains(observer) {
+            observers.add(observer)
+        }
+    }
+    
+    func remove(observer: SSDPSearcherObserver) {
+        observers.remove(observer)
+    }
+    
+    private func notifyObserversOfSearchAbortion(withError error: SSDPSearcherError) {
+        for case let observer as SSDPSearcherObserver in observers.allObjects {
+            observer.searcher(self, didAbortWithError: error)
+        }
+    }
+    
+    private func notifyObserversOfServiceFound(_ service: SSDPService) {
+        for case let observer as SSDPSearcherObserver in observers.allObjects {
+            observer.searcher(self, didFindService: service)
+        }
+    }
+    
+    private func notifyObserversOfSearchEnded(withServicesFound services: [SSDPService]) {
+        for case let observer as SSDPSearcherObserver in observers.allObjects {
+            observer.searcherDidStopSearch(self, foundServices: services)
+        }
+    }
+    
     // MARK: - Search
     
     func startSearch() {
@@ -50,25 +79,18 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
         os_log(.info, "Starting SSDP search")
         
         guard let searchSession = SSDPSearchSession(configuration: configuration) else {
-            delegate?.searcher(self, didAbortWithError: SSDPSearcherError.unableToOpenSearchSession)
+            notifyObserversOfSearchAbortion(withError: SSDPSearcherError.unableToOpenSearchSession)
             return
         }
         
         self.searchSession = searchSession
         self.searchSession?.delegate = self
         self.searchSession?.startSearch()
-
-        timeoutTimer = Timer.scheduledTimer(withTimeInterval: (configuration.searchTimeout + 0.1), repeats: false, block: { [weak self] (timer) in
-            os_log(.info, "SSDP search timed out")
-            self?.stopExistingSearchSession()
-        })
     }
     
     private func stopExistingSearchSession() {
         searchSession?.stopSearch()
         searchSession = nil
-        timeoutTimer?.invalidate()
-        timeoutTimer = nil
     }
     
     func stopSearch() {
@@ -83,7 +105,8 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
             return
         }
         
-        delegate?.searcher(self, didAbortWithError: SSDPSearcherError.searchFailed(error))
+        notifyObserversOfSearchAbortion(withError: SSDPSearcherError.searchFailed(error))
+        
         stopExistingSearchSession()
     }
     
@@ -92,14 +115,15 @@ class SSDPSearcher: SSDPSearchSessionDelegate {
             return
         }
         
-        delegate?.searcher(self, didFindService: service)
+        notifyObserversOfServiceFound(service)
     }
     
-    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession) {
+    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession, foundServices: [SSDPService]) {
         guard self.searchSession === searchSession else {
             return
         }
         
-        delegate?.searcherDidStopSearch(self)
+        notifyObserversOfSearchEnded(withServicesFound: foundServices)
+        stopExistingSearchSession()
     }
 }

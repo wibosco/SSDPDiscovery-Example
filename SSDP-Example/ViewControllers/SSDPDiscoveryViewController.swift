@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITableViewDataSource {
+class SSDPDiscoveryViewController: UIViewController, SSDPSearcherObserver, UITableViewDataSource {
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
@@ -22,9 +22,9 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 2, searchTimeout: 8)
+        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 3, searchTimeout: 9)
         searcher = SSDPSearcher(configuration: config)
-        searcher?.delegate = self
+        searcher?.add(observer: self)
     }
 
     // MARK: - ButtonActions
@@ -48,7 +48,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
         }
     }
     
-    // MARK: - SSDPDeviceSearcherDelegate
+    // MARK: - SSDPSearcherObserver
     
     func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError) {
         toggleSearchingUI()
@@ -56,12 +56,12 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherDelegate, UITab
     
     func searcher(_ searcher: SSDPSearcher, didFindService service: SSDPService) {
         DispatchQueue.main.async {
-            self.servicesFound.append(service)
-            self.tableView.reloadData()
+            self.servicesFound.insert(service, at: 0)
+            self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }
     }
     
-    func searcherDidStopSearch(_ searcher: SSDPSearcher) {
+    func searcherDidStopSearch(_ searcher: SSDPSearcher, foundServices: [SSDPService]) {
         toggleSearchingUI()
     }
     

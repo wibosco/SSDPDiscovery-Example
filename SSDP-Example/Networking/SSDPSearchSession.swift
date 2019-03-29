@@ -16,9 +16,9 @@ enum SSDPSearchSessionError: Error {
 }
 
 protocol SSDPSearchSessionDelegate: class {
-    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError)
     func searchSession(_ searchSession: SSDPSearchSession, didFindService service: SSDPService)
-    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession)
+    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError)
+    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession, foundServices: [SSDPService])
 }
 
 class SSDPSearchSession {
@@ -30,6 +30,7 @@ class SSDPSearchSession {
     private var servicesFoundDuringSearch = [SSDPService]()
     private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue")
     private var broadcastTimer: Timer?
+    private var timeoutTimer: Timer?
     
     // MARK: - Init
     
@@ -46,6 +47,15 @@ class SSDPSearchSession {
     func startSearch() {
         prepareSocketForResponses()
         broadcastMultipleSearchRequests()
+        
+        timeoutTimer = Timer.scheduledTimer(withTimeInterval: (configuration.searchTimeout + 0.1), repeats: false, block: { [weak self] (timer) in
+            self?.searchTimedOut()
+        })
+    }
+    
+    private func searchTimedOut() {
+        os_log(.info, "SSDP search timed out")
+        close(dueToError: nil)
     }
     
     func stopSearch() {
@@ -61,13 +71,15 @@ class SSDPSearchSession {
         }
         broadcastTimer?.invalidate()
         broadcastTimer = nil
+        timeoutTimer?.invalidate()
+        timeoutTimer = nil
         isListening = false
         socket.close()
         
         if let error = error {
             delegate?.searchSession(self, didAbortWithError: error)
         } else {
-            delegate?.searchSessionDidStopSearch(self)
+            delegate?.searchSessionDidStopSearch(self, foundServices: servicesFoundDuringSearch)
         }
     }
     
