@@ -22,7 +22,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherObserver, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 3, searchTimeout: 9)
+        let config = SSDPSearchSessionConfiguration(searchTarget: "ssdp:all", maximumWaitResponseTime: 3, maximumBroadcastsBeforeClosing: 3)
         searcher = SSDPSearcher(configuration: config)
         searcher?.add(observer: self)
     }

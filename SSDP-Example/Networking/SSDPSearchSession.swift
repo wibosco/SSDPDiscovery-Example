@@ -48,7 +48,8 @@ class SSDPSearchSession {
         prepareSocketForResponses()
         broadcastMultipleSearchRequests()
         
-        timeoutTimer = Timer.scheduledTimer(withTimeInterval: (configuration.searchTimeout + 0.1), repeats: false, block: { [weak self] (timer) in
+        let searchTimeout = (TimeInterval(configuration.maximumBroadcastsBeforeClosing) * configuration.maximumWaitResponseTime) + 0.1
+        timeoutTimer = Timer.scheduledTimer(withTimeInterval: searchTimeout, repeats: false, block: { [weak self] (timer) in
             self?.searchTimedOut()
         })
     }
