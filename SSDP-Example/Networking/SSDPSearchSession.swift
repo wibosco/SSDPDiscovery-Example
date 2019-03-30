@@ -45,6 +45,7 @@ class SSDPSearchSession {
     // MARK: - Search
     
     func startSearch() {
+        os_log(.info, "SSDP search session starting")
         prepareSocketForResponses()
         broadcastMultipleSearchRequests()
         
@@ -60,7 +61,7 @@ class SSDPSearchSession {
     }
     
     func stopSearch() {
-        os_log(.info, "SSDP search session is closing")
+        os_log(.info, "SSDP search session stopping")
         close(dueToError: nil)
     }
     

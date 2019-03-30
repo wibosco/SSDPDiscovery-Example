@@ -8,24 +8,14 @@
 
 import UIKit
 
-class SSDPDiscoveryViewController: UIViewController, SSDPSearcherObserver, UITableViewDataSource {
+class SSDPDiscoveryViewController: UIViewController, SSDPSearchSessionDelegate, UITableViewDataSource {
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
     
-    private var searcher: SSDPSearcher?
+    private var searchSession: SSDPSearchSession?
     
     private var servicesFound = [SSDPService]()
-    
-    // MARK: - ViewLifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let config = SSDPSearchSessionConfiguration(maximumWaitResponseTime: 3, maximumBroadcastsBeforeClosing: 3)
-        searcher = SSDPSearcher(configuration: config)
-        searcher?.add(observer: self)
-    }
 
     // MARK: - ButtonActions
     
@@ -33,7 +23,11 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherObserver, UITab
         servicesFound.removeAll()
         tableView.reloadData()
         toggleSearchingUI()
-        searcher?.startSearch()
+        
+        let configuration = SSDPSearchSessionConfiguration(maximumWaitResponseTime: 3, maximumBroadcastsBeforeClosing: 3)
+        searchSession = SSDPSearchSession(configuration: configuration)
+        searchSession?.delegate = self
+        searchSession?.startSearch()
     }
     
     private func toggleSearchingUI() {
@@ -48,20 +42,32 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearcherObserver, UITab
         }
     }
     
-    // MARK: - SSDPSearcherObserver
+    // MARK: - SSDPSearchSessionDelegate
     
-    func searcher(_ searcher: SSDPSearcher, didAbortWithError error: SSDPSearcherError) {
-        toggleSearchingUI()
-    }
-    
-    func searcher(_ searcher: SSDPSearcher, didFindService service: SSDPService) {
+    func searchSession(_ searchSession: SSDPSearchSession, didFindService service: SSDPService) {
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
         DispatchQueue.main.async {
             self.servicesFound.insert(service, at: 0)
             self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }
     }
     
-    func searcherDidStopSearch(_ searcher: SSDPSearcher, foundServices: [SSDPService]) {
+    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError) {
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
+        toggleSearchingUI()
+    }
+    
+    func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession, foundServices: [SSDPService]) {
+        guard self.searchSession === searchSession else {
+            return
+        }
+        
         toggleSearchingUI()
     }
     
