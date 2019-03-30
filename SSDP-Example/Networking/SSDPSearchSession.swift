@@ -27,8 +27,8 @@ class SSDPSearchSession {
     private let socket: Socket
     private let configuration: SSDPSearchSessionConfiguration
     private var isListening = false
+    private let listeningQueue = DispatchQueue(label: "com.williamboles.listening")
     private var servicesFoundDuringSearch = [SSDPService]()
-    private let searchQueue = DispatchQueue(label: "com.williamboles.searchqueue")
     private var broadcastTimer: Timer?
     private var timeoutTimer: Timer?
     
@@ -128,7 +128,7 @@ class SSDPSearchSession {
     // MARK: - Read
     
     private func prepareSocketForResponses() {
-        searchQueue.async() { [weak self] in
+        listeningQueue.async() { [weak self] in
             self?.isListening = true
             self?.readResponse() // contains blocking call
         }
