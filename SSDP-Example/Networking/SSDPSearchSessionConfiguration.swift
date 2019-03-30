@@ -10,8 +10,21 @@ import Foundation
 
 struct SSDPSearchSessionConfiguration {
     let searchTarget: String
-    let host: String = "239.255.255.250" // override this to unicast
-    let port: UInt = 1900 // override this to unicast
+    let host: String
+    let port: UInt
     let maximumWaitResponseTime: TimeInterval
     let maximumBroadcastsBeforeClosing: UInt
+    
+    // MARK: - Init
+    
+    init(searchTarget: String = "ssdp:all", host: String = "239.255.255.250", port: UInt = 1900, maximumWaitResponseTime: TimeInterval, maximumBroadcastsBeforeClosing: UInt) {
+        assert(maximumWaitResponseTime >= 1 && maximumWaitResponseTime <= 5, "maximumWaitResponseTime should be between 1 and 5")
+        assert(maximumBroadcastsBeforeClosing >= 1, "maximumBroadcastsBeforeClosing should be greater than 1")
+        
+        self.searchTarget = searchTarget
+        self.host = host
+        self.port = port
+        self.maximumWaitResponseTime = maximumWaitResponseTime
+        self.maximumBroadcastsBeforeClosing = maximumBroadcastsBeforeClosing
+    }
 }
