@@ -24,7 +24,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearchSessionDelegate, 
         tableView.reloadData()
         toggleSearchingUI()
         
-        let configuration = SSDPSearchSessionConfiguration(maximumWaitResponseTime: 3, maximumBroadcastsBeforeClosing: 3)
+        let configuration = SSDPSearchSessionConfiguration()
         searchSession = SSDPSearchSession(configuration: configuration)
         searchSession?.delegate = self
         searchSession?.startSearch()
