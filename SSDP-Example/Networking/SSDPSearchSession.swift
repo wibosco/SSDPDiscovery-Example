@@ -42,6 +42,10 @@ class SSDPSearchSession {
         self.configuration = configuration
     }
     
+    deinit {
+        stopSearch()
+    }
+    
     // MARK: - Search
     
     func startSearch() {
