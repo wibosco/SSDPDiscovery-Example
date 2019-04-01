@@ -17,7 +17,7 @@ struct SSDPSearchSessionConfiguration {
     
     // MARK: - Init
     
-    init(searchTarget: String = "ssdp:all", host: String = "239.255.255.250", port: UInt = 1900, maximumWaitResponseTime: TimeInterval = 3, maximumBroadcastsBeforeClosing: UInt = 3) {
+    init(searchTarget: String, host: String, port: UInt, maximumWaitResponseTime: TimeInterval, maximumBroadcastsBeforeClosing: UInt) {
         assert(maximumWaitResponseTime >= 1 && maximumWaitResponseTime <= 5, "maximumWaitResponseTime should be between 1 and 5")
         assert(maximumBroadcastsBeforeClosing >= 1, "maximumBroadcastsBeforeClosing should be greater than 1")
         
@@ -26,5 +26,14 @@ struct SSDPSearchSessionConfiguration {
         self.port = port
         self.maximumWaitResponseTime = maximumWaitResponseTime
         self.maximumBroadcastsBeforeClosing = maximumBroadcastsBeforeClosing
+    }
+}
+
+extension SSDPSearchSessionConfiguration {
+    
+    static func createMulticastConfiguration(forSearchTarget searchTarget: String, maximumWaitResponseTime: TimeInterval = 3, maximumBroadcastsBeforeClosing: UInt = 3) -> SSDPSearchSessionConfiguration {
+        let configuration = SSDPSearchSessionConfiguration(searchTarget: searchTarget, host: "239.255.255.250", port: 1900, maximumWaitResponseTime: maximumWaitResponseTime, maximumBroadcastsBeforeClosing: maximumBroadcastsBeforeClosing)
+        
+        return configuration
     }
 }
