@@ -18,8 +18,8 @@ struct SSDPSearchSessionConfiguration {
     // MARK: - Init
     
     init(searchTarget: String, host: String, port: UInt, maximumWaitResponseTime: TimeInterval, maximumBroadcastsBeforeClosing: UInt) {
-        assert(maximumWaitResponseTime >= 1 && maximumWaitResponseTime <= 5, "maximumWaitResponseTime should be between 1 and 5")
-        assert(maximumBroadcastsBeforeClosing >= 1, "maximumBroadcastsBeforeClosing should be greater than 1")
+        assert(maximumWaitResponseTime >= 1 && maximumWaitResponseTime <= 5, "maximumWaitResponseTime should be between 1 and 5 (inclusive)")
+        assert(maximumBroadcastsBeforeClosing >= 1, "maximumBroadcastsBeforeClosing should be equal to or greater than 1")
         
         self.searchTarget = searchTarget
         self.host = host
