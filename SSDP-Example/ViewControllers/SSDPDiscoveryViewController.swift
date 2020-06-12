@@ -55,7 +55,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearchSessionDelegate, 
         }
     }
     
-    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError) {
+    func searchSession(_ searchSession: SSDPSearchSession, didEncounterError error: SSDPSearchSessionError) {
         guard self.searchSession === searchSession else {
             return
         }

@@ -8,17 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		1026ABCE675A85F69A318252 /* Pods_SSDP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6461E27D867A2CD63D5D3D0 /* Pods_SSDP_Example.framework */; };
-		3D564DC72219F55A00BEE287 /* SSDPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC42219F55A00BEE287 /* SSDPService.swift */; };
-		3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */; };
-		3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */; };
+		3D19CE9424951D49008B6C58 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19CE9324951D49008B6C58 /* TestError.swift */; };
 		3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */; };
 		3DD8DF902219CFBD00F92FCC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF852219CFBD00F92FCC /* LaunchScreen.storyboard */; };
 		3DD8DF912219CFBD00F92FCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF872219CFBD00F92FCC /* Main.storyboard */; };
 		3DD8DF922219CFBD00F92FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */; };
 		3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8C2219CFBD00F92FCC /* AppDelegate.swift */; };
 		3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8F2219CFBD00F92FCC /* SSDPDiscoveryViewController.swift */; };
-		3DDEB1B7223D101E0099F624 /* SSDPServiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEB1B6223D101E0099F624 /* SSDPServiceParser.swift */; };
-		3DF3EA6722182AB90020C93D /* SSDP_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3EA6622182AB90020C93D /* SSDP_ExampleTests.swift */; };
+		3DF4DCC22493D3C9002D1F50 /* SSDPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBB2493D3C9002D1F50 /* SSDPService.swift */; };
+		3DF4DCC32493D3C9002D1F50 /* SSDPServiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */; };
+		3DF4DCC42493D3C9002D1F50 /* SSDPSearchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */; };
+		3DF4DCC52493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */; };
+		3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */; };
+		3DF4DCC72493D3C9002D1F50 /* UDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */; };
+		3DF4DCCA2493D57A002D1F50 /* MockUDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */; };
+		3DF4DCCC2493D5A7002D1F50 /* MockUDPSocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */; };
+		3DF4DCCE2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */; };
+		3DF4DCD02493D767002D1F50 /* MockSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */; };
+		3DF4DCD824941765002D1F50 /* SSDPSearchSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */; };
+		3DF4DCDA24941781002D1F50 /* MockSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCD924941781002D1F50 /* MockSocket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,9 +41,7 @@
 
 /* Begin PBXFileReference section */
 		057EFE53D5342BFFA9121E15 /* Pods-SSDP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSDP-Example.debug.xcconfig"; path = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.debug.xcconfig"; sourceTree = "<group>"; };
-		3D564DC42219F55A00BEE287 /* SSDPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPService.swift; sourceTree = "<group>"; };
-		3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSession.swift; sourceTree = "<group>"; };
-		3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfiguration.swift; sourceTree = "<group>"; };
+		3D19CE9324951D49008B6C58 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPResponseTableViewCell.swift; sourceTree = "<group>"; };
 		3DD8DF862219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DD8DF882219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,11 +49,21 @@
 		3DD8DF8C2219CFBD00F92FCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DD8DF8D2219CFBD00F92FCC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DD8DF8F2219CFBD00F92FCC /* SSDPDiscoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPDiscoveryViewController.swift; sourceTree = "<group>"; };
-		3DDEB1B6223D101E0099F624 /* SSDPServiceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPServiceParser.swift; sourceTree = "<group>"; };
 		3DF3EA4E22182AB80020C93D /* SSDP-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSDP-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF3EA6222182AB90020C93D /* SSDP-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SSDP-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DF3EA6622182AB90020C93D /* SSDP_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDP_ExampleTests.swift; sourceTree = "<group>"; };
-		3DF3EA6822182AB90020C93D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DF4DCBB2493D3C9002D1F50 /* SSDPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPService.swift; sourceTree = "<group>"; };
+		3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPServiceParser.swift; sourceTree = "<group>"; };
+		3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSession.swift; sourceTree = "<group>"; };
+		3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfiguration.swift; sourceTree = "<group>"; };
+		3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketFactory.swift; sourceTree = "<group>"; };
+		3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPSocket.swift; sourceTree = "<group>"; };
+		3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUDPSocket.swift; sourceTree = "<group>"; };
+		3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUDPSocketDelegate.swift; sourceTree = "<group>"; };
+		3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSSDPSearchSessionDelegate.swift; sourceTree = "<group>"; };
+		3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocketFactory.swift; sourceTree = "<group>"; };
+		3DF4DCD424941765002D1F50 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionTests.swift; sourceTree = "<group>"; };
+		3DF4DCD924941781002D1F50 /* MockSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocket.swift; sourceTree = "<group>"; };
 		751B754AF24DFA628119E8D8 /* Pods-SSDP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSDP-Example.release.xcconfig"; path = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.release.xcconfig"; sourceTree = "<group>"; };
 		C6461E27D867A2CD63D5D3D0 /* Pods_SSDP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSDP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,13 +87,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D19CE9224951D3C008B6C58 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3D19CE9324951D49008B6C58 /* TestError.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3D564DC32219F50A00BEE287 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				3D564DC62219F55A00BEE287 /* SSDPSearchSession.swift */,
-				3D564DCA2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift */,
-				3D564DC42219F55A00BEE287 /* SSDPService.swift */,
-				3DDEB1B6223D101E0099F624 /* SSDPServiceParser.swift */,
+				3DF4DCBF2493D3C9002D1F50 /* Socket */,
+				3DF4DCBA2493D3C9002D1F50 /* SSDP */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -152,10 +174,60 @@
 		3DF3EA6522182AB90020C93D /* SSDP-ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3DF3EA6622182AB90020C93D /* SSDP_ExampleTests.swift */,
-				3DF3EA6822182AB90020C93D /* Info.plist */,
+				3DF4DCD324941765002D1F50 /* Application */,
+				3D19CE9224951D3C008B6C58 /* Helpers */,
+				3DF4DCC82493D56D002D1F50 /* Mocks */,
+				3DF4DCD524941765002D1F50 /* Tests */,
 			);
 			path = "SSDP-ExampleTests";
+			sourceTree = "<group>";
+		};
+		3DF4DCBA2493D3C9002D1F50 /* SSDP */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4DCBB2493D3C9002D1F50 /* SSDPService.swift */,
+				3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */,
+				3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */,
+				3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */,
+			);
+			path = SSDP;
+			sourceTree = "<group>";
+		};
+		3DF4DCBF2493D3C9002D1F50 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */,
+				3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */,
+			);
+			path = Socket;
+			sourceTree = "<group>";
+		};
+		3DF4DCC82493D56D002D1F50 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4DCD924941781002D1F50 /* MockSocket.swift */,
+				3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */,
+				3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */,
+				3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */,
+				3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3DF4DCD324941765002D1F50 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4DCD424941765002D1F50 /* Info.plist */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		3DF4DCD524941765002D1F50 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		50DD331C5DD831D1772B5860 /* Frameworks */ = {
@@ -283,15 +355,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 			);
@@ -330,12 +398,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */,
-				3D564DCB2219F69300BEE287 /* SSDPSearchSessionConfiguration.swift in Sources */,
-				3DDEB1B7223D101E0099F624 /* SSDPServiceParser.swift in Sources */,
-				3D564DC72219F55A00BEE287 /* SSDPService.swift in Sources */,
-				3D564DC92219F55A00BEE287 /* SSDPSearchSession.swift in Sources */,
 				3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */,
+				3DF4DCC72493D3C9002D1F50 /* UDPSocket.swift in Sources */,
 				3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */,
+				3DF4DCC52493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift in Sources */,
+				3DF4DCC22493D3C9002D1F50 /* SSDPService.swift in Sources */,
+				3DF4DCC42493D3C9002D1F50 /* SSDPSearchSession.swift in Sources */,
+				3DF4DCC32493D3C9002D1F50 /* SSDPServiceParser.swift in Sources */,
+				3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +413,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF3EA6722182AB90020C93D /* SSDP_ExampleTests.swift in Sources */,
+				3DF4DCCA2493D57A002D1F50 /* MockUDPSocket.swift in Sources */,
+				3DF4DCCC2493D5A7002D1F50 /* MockUDPSocketDelegate.swift in Sources */,
+				3DF4DCD02493D767002D1F50 /* MockSocketFactory.swift in Sources */,
+				3DF4DCCE2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift in Sources */,
+				3DF4DCDA24941781002D1F50 /* MockSocket.swift in Sources */,
+				3D19CE9424951D49008B6C58 /* TestError.swift in Sources */,
+				3DF4DCD824941765002D1F50 /* SSDPSearchSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +604,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "SSDP-ExampleTests/Info.plist";
+				INFOPLIST_FILE = "SSDP-ExampleTests/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.SSDP-ExampleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -544,7 +620,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "SSDP-ExampleTests/Info.plist";
+				INFOPLIST_FILE = "SSDP-ExampleTests/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamboles.SSDP-ExampleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
