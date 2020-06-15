@@ -54,16 +54,16 @@ class UDPSocket: UDPSocketProtocol {
     private let host: String
     private let port: UInt
     
-    private var beenClosed = false
-    
+    private let callbackQueue: OperationQueue
     private let socketLockQueue = DispatchQueue(label: "com.williamboles.udpsocket.lock.queue",  attributes: .concurrent)
     
     // MARK: - Init
     
-    init(host: String, port: UInt, socket: SocketProtocol) {
+    init(host: String, port: UInt, socket: SocketProtocol, callbackQueue: OperationQueue = .main) {
         self.socket = socket
         self.host = host
         self.port = port
+        self.callbackQueue = callbackQueue
     }
     
     // MARK: - Write
@@ -79,18 +79,18 @@ class UDPSocket: UDPSocketProtocol {
                 let shouldStartListening = self.state.isReady
                 self.state = .active
                 try self.socket.write(message, to: self.host, on: self.port)
-                if shouldStartListening {
+                if shouldStartListening { // Only need to start listening once per socket
                     repeat {
                         var data = Data()
                         try self.socket.readDatagram(into: &data) //blocking call
-                        DispatchQueue.main.async {
+                        self.callbackQueue.addOperation {
                             self.delegate?.session(self, didReceiveResponse: data)
                         }
                     } while self.state.isActive
                 }
             } catch {
                 if self.state.isActive { // ignore any errors for non-active sockets
-                    DispatchQueue.main.async {
+                    self.callbackQueue.addOperation {
                         self.delegate?.session(self, didEncounterError: error)
                     }
                 }

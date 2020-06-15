@@ -130,7 +130,6 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     // MARK: - UDPSocketDelegate
     
     func session(_ socket: UDPSocketProtocol, didReceiveResponse response: Data) {
-        os_log(.info, "Received potential service")
         guard !response.isEmpty,
             let service = parser.parse(response),
             searchedForService(service),
