@@ -17,23 +17,33 @@ private enum SSDPServiceResponseKey: String {
     case uniqueServiceName = "USN"
 }
 
-class SSDPServiceParser {
+protocol SSDPServiceParserProtocol {
+    func parse(_ data: Data) -> SSDPService?
+}
+
+class SSDPServiceParser: SSDPServiceParserProtocol {
     
-    private static let dateFormatter = DateFormatter()
+    private let dateFactory: DateFactoryProtocol
+    
+    // Init
+    
+    init(dateFactory: DateFactoryProtocol =  DateFactory()) {
+        self.dateFactory = dateFactory
+    }
     
     // MARK: - Parse
     
-    static func parse(_ data: Data) -> SSDPService? {
+    func parse(_ data: Data) -> SSDPService? {
         guard let responseString = String(data: data, encoding: .utf8) else {
             return nil
         }
         
         os_log(.info, "Received SSDP response: \r%{public}@", responseString)
         
-        var responseDict = SSDPServiceParser.parseResponseIntoDictionary(responseString)
+        var responseDict = parseResponseIntoDictionary(responseString)
         
-        guard let cacheControl = SSDPServiceParser.parseCacheControl(responseDict[SSDPServiceResponseKey.cacheControl.rawValue]),
-            let location = SSDPServiceParser.parseLocation(responseDict[SSDPServiceResponseKey.location.rawValue]),
+        guard let cacheControl = parseCacheControl(responseDict[SSDPServiceResponseKey.cacheControl.rawValue]),
+            let location = parseLocation(responseDict[SSDPServiceResponseKey.location.rawValue]),
             let server = responseDict[SSDPServiceResponseKey.server.rawValue],
             let searchTarget = responseDict[SSDPServiceResponseKey.searchTarget.rawValue],
             let uniqueServiceName = responseDict[SSDPServiceResponseKey.uniqueServiceName.rawValue] else {
@@ -49,7 +59,7 @@ class SSDPServiceParser {
         return SSDPService(cacheControl: cacheControl, location: location, server: server, searchTarget: searchTarget, uniqueServiceName: uniqueServiceName, otherHeaders: responseDict)
     }
     
-    private static func parseResponseIntoDictionary(_ response: String) -> [String: String] {
+    private func parseResponseIntoDictionary(_ response: String) -> [String: String] {
         var elements = [String: String]()
         for element in response.split(separator: "\r\n") {
             let keyValuePair = element.split(separator: ":", maxSplits: 1)
@@ -66,17 +76,18 @@ class SSDPServiceParser {
         return elements
     }
     
-    private static func parseCacheControl(_ value: String?) -> Date? {
+    private func parseCacheControl(_ value: String?) -> Date? {
         guard let cacheControlRange = value?.range(of: "[0-9]+$", options: .regularExpression),
             let cacheControlString = value?[cacheControlRange],
             let cacheControlTimeInterval = TimeInterval(cacheControlString) else {
                 return nil
         }
         
-        return Date(timeIntervalSinceNow: cacheControlTimeInterval)
+        let currentDate = dateFactory.currentDate()
+        return currentDate.addingTimeInterval(cacheControlTimeInterval)
     }
     
-    private static func parseLocation(_ value: String?) -> URL? {
+    private func parseLocation(_ value: String?) -> URL? {
         guard let urlString = value,
             let url = URL(string: urlString) else {
                 return nil

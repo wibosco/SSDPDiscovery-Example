@@ -7,15 +7,33 @@
 //
 
 import Foundation
-import Socket
+import os
 
 protocol UDPSocketDelegate: class {
     func session(_ socket: UDPSocketProtocol, didReceiveResponse response: Data)
     func session(_ socket: UDPSocketProtocol, didEncounterError error: Error)
 }
 
+enum UDPSocketState {
+    case ready
+    case active
+    case closed
+    
+    var isReady: Bool {
+        self == .ready
+    }
+    
+    var isActive: Bool {
+        self == .active
+    }
+    
+    var isClosed: Bool {
+        self == .closed
+    }
+}
+
 protocol UDPSocketProtocol: class {
-    var isOpen: Bool { get }
+    var state: UDPSocketState { get }
     var delegate: UDPSocketDelegate? { get set }
     
     func write(message: String)
@@ -27,20 +45,8 @@ enum UDPSocketError: Error, Equatable {
 }
 
 class UDPSocket: UDPSocketProtocol {
-    private var _isOpen: Bool = false
-    var isOpen: Bool {
-        get {
-            return serialQueue.sync {
-                return _isOpen
-            }
-        }
-        
-        set {
-            serialQueue.sync {
-                _isOpen = newValue
-            }
-        }
-    }
+    private(set) var state: UDPSocketState = .ready
+    
     weak var delegate: UDPSocketDelegate?
     
     private let socket: SocketProtocol
@@ -48,13 +54,13 @@ class UDPSocket: UDPSocketProtocol {
     private let host: String
     private let port: UInt
     
-    private let socketReadWriteQueue = DispatchQueue(label: "com.williamboles.udpsocket.readwrite.queue",  attributes: .concurrent)
-    private let serialQueue = DispatchQueue(label: "com.williamboles.udpsocket.serial.queue")
-    private var firstWrite = true
+    private var beenClosed = false
+    
+    private let socketLockQueue = DispatchQueue(label: "com.williamboles.udpsocket.lock.queue",  attributes: .concurrent)
     
     // MARK: - Init
     
-    init(host: String, port: UInt, socket: SocketProtocol) {        
+    init(host: String, port: UInt, socket: SocketProtocol) {
         self.socket = socket
         self.host = host
         self.port = port
@@ -63,58 +69,32 @@ class UDPSocket: UDPSocketProtocol {
     // MARK: - Write
     
     func write(message: String) {
-        if firstWrite {
-            scheduleReadOnQueue()
+        guard !state.isClosed else {
+            os_log(.info, "Attempting to write to a closed socket")
+            return
         }
         
-        scheduleWriteOnQueue(message: message)
-        firstWrite = false
-    }
-    
-    private func scheduleWriteOnQueue(message: String) {
-        socketReadWriteQueue.async {
-            self.write(message: message, to: self.host, on: self.port)
-        }
-    }
-    
-    private func write(message: String, to host: String, on port: UInt) {
-        do {
-            try socket.write(message, to: host, on: port)
-            isOpen = true
-        } catch {
-            close()
-            DispatchQueue.main.async {
-                self.delegate?.session(self, didEncounterError: error)
-            }
-        }
-    }
-    
-    // MARK: - Read
-    
-    private func scheduleReadOnQueue() {
-        socketReadWriteQueue.async {
-            self.readResponse()
-        }
-    }
-    
-    private func readResponse() {
-        var data = Data()
-        
-        do {
-            try socket.readDatagram(into: &data) //blocking call
-            DispatchQueue.main.async {
-                self.delegate?.session(self, didReceiveResponse: data)
-            }
-            
-            if isOpen {
-                readResponse()
-            }
-        } catch {
-            if isOpen { // sockets when closed will throw an error - this is expected so we don't pass it back
-                close()
-                DispatchQueue.main.async {
-                    self.delegate?.session(self, didEncounterError: error)
+        socketLockQueue.async {
+            do {
+                let shouldStartListening = self.state.isReady
+                self.state = .active
+                try self.socket.write(message, to: self.host, on: self.port)
+                if shouldStartListening {
+                    repeat {
+                        var data = Data()
+                        try self.socket.readDatagram(into: &data) //blocking call
+                        DispatchQueue.main.async {
+                            self.delegate?.session(self, didReceiveResponse: data)
+                        }
+                    } while self.state.isActive
                 }
+            } catch {
+                if self.state.isActive { // ignore any errors for non-active sockets
+                    DispatchQueue.main.async {
+                        self.delegate?.session(self, didEncounterError: error)
+                    }
+                }
+                self.close()
             }
         }
     }
@@ -122,7 +102,7 @@ class UDPSocket: UDPSocketProtocol {
     // MARK: - Close
     
     func close() {
-        isOpen = false
+        state = .closed
         socket.close()
     }
 }

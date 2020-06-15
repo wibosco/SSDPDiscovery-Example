@@ -11,13 +11,13 @@ import Foundation
 
 class MockUDPSocketDelegate: UDPSocketDelegate {
     var didReceiveResponseClosure: ((UDPSocketProtocol, Data) -> Void)?
-    var didEncounterErroreClosure: ((UDPSocketProtocol, Error) -> Void)?
+    var didEncounterErrorClosure: ((UDPSocketProtocol, Error) -> Void)?
 
     func session(_ socket: UDPSocketProtocol, didReceiveResponse response: Data) {
         didReceiveResponseClosure?(socket, response)
     }
     
     func session(_ socket: UDPSocketProtocol, didEncounterError error: Error) {
-        didEncounterErroreClosure?(socket, error)
+        didEncounterErrorClosure?(socket, error)
     }
 }

@@ -9,7 +9,13 @@
 /* Begin PBXBuildFile section */
 		1026ABCE675A85F69A318252 /* Pods_SSDP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6461E27D867A2CD63D5D3D0 /* Pods_SSDP_Example.framework */; };
 		3D19CE9424951D49008B6C58 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19CE9324951D49008B6C58 /* TestError.swift */; };
+		3D2EEA0B249770ED00E13131 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0A249770ED00E13131 /* DateFactory.swift */; };
+		3D2EEA0D2497726600E13131 /* MockDateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0C2497726600E13131 /* MockDateFactory.swift */; };
+		3D2EEA0F2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */; };
+		3D2EEA112497A7DA00E13131 /* UDPSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */; };
 		3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */; };
+		3D96DBF3249627E000DD35C9 /* SSDPServiceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */; };
+		3D96DBF524962A0000DD35C9 /* MockSSDPServiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */; };
 		3DD8DF902219CFBD00F92FCC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF852219CFBD00F92FCC /* LaunchScreen.storyboard */; };
 		3DD8DF912219CFBD00F92FCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF872219CFBD00F92FCC /* Main.storyboard */; };
 		3DD8DF922219CFBD00F92FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */; };
@@ -42,7 +48,13 @@
 /* Begin PBXFileReference section */
 		057EFE53D5342BFFA9121E15 /* Pods-SSDP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSDP-Example.debug.xcconfig"; path = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		3D19CE9324951D49008B6C58 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		3D2EEA0A249770ED00E13131 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
+		3D2EEA0C2497726600E13131 /* MockDateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDateFactory.swift; sourceTree = "<group>"; };
+		3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfigurationTests.swift; sourceTree = "<group>"; };
+		3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPSocketTests.swift; sourceTree = "<group>"; };
 		3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPResponseTableViewCell.swift; sourceTree = "<group>"; };
+		3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPServiceParserTests.swift; sourceTree = "<group>"; };
+		3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSSDPServiceParser.swift; sourceTree = "<group>"; };
 		3DD8DF862219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DD8DF882219CFBD00F92FCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DD8DF8A2219CFBD00F92FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -189,6 +201,7 @@
 				3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */,
 				3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */,
 				3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */,
+				3D2EEA0A249770ED00E13131 /* DateFactory.swift */,
 			);
 			path = SSDP;
 			sourceTree = "<group>";
@@ -210,6 +223,8 @@
 				3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */,
 				3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */,
 				3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */,
+				3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */,
+				3D2EEA0C2497726600E13131 /* MockDateFactory.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -226,6 +241,9 @@
 			isa = PBXGroup;
 			children = (
 				3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */,
+				3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */,
+				3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */,
+				3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -399,6 +417,7 @@
 			files = (
 				3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */,
 				3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */,
+				3D2EEA0B249770ED00E13131 /* DateFactory.swift in Sources */,
 				3DF4DCC72493D3C9002D1F50 /* UDPSocket.swift in Sources */,
 				3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */,
 				3DF4DCC52493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift in Sources */,
@@ -415,9 +434,14 @@
 			files = (
 				3DF4DCCA2493D57A002D1F50 /* MockUDPSocket.swift in Sources */,
 				3DF4DCCC2493D5A7002D1F50 /* MockUDPSocketDelegate.swift in Sources */,
+				3D2EEA0F2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift in Sources */,
+				3D96DBF3249627E000DD35C9 /* SSDPServiceParserTests.swift in Sources */,
+				3D2EEA112497A7DA00E13131 /* UDPSocketTests.swift in Sources */,
 				3DF4DCD02493D767002D1F50 /* MockSocketFactory.swift in Sources */,
+				3D2EEA0D2497726600E13131 /* MockDateFactory.swift in Sources */,
 				3DF4DCCE2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift in Sources */,
 				3DF4DCDA24941781002D1F50 /* MockSocket.swift in Sources */,
+				3D96DBF524962A0000DD35C9 /* MockSSDPServiceParser.swift in Sources */,
 				3D19CE9424951D49008B6C58 /* TestError.swift in Sources */,
 				3DF4DCD824941765002D1F50 /* SSDPSearchSessionTests.swift in Sources */,
 			);

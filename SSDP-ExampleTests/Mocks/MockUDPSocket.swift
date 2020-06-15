@@ -10,20 +10,21 @@ import Foundation
 @testable import SSDP_Example
 
 class MockUDPSocket: UDPSocketProtocol {
+    var state: UDPSocketState = .ready
+    
     var writeClosure: ((String) -> Void)?
     var closeClosure: (() -> Void)?
     
-    var isOpen: Bool = false
     weak var delegate: UDPSocketDelegate? = nil
     
     func write(message: String) {
-        isOpen = true
+        state = .active
         
         writeClosure?(message)
     }
     
     func close() {
-        isOpen = false
+        state = .closed
         
         closeClosure?()
     }

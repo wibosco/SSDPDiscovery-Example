@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Socket
 import os
 
 enum SSDPSearchSessionError: Error {
@@ -32,6 +31,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     
     private let socket: UDPSocketProtocol
     private let configuration: SSDPSearchSessionConfiguration
+    private let parser: SSDPServiceParserProtocol
     
     private var servicesFoundDuringSearch = [SSDPService]()
     
@@ -42,19 +42,16 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     
     // MARK: - Init
     
-    init?(configuration: SSDPSearchSessionConfiguration, socketFactory: SocketFactoryProtocol = SocketFactory()) {
+    init?(configuration: SSDPSearchSessionConfiguration, socketFactory: SocketFactoryProtocol = SocketFactory(), parser: SSDPServiceParserProtocol = SSDPServiceParser()) {
         guard let socket = socketFactory.createUDPSocket(host: configuration.host, port: configuration.port) else {
             return nil
         }
         self.socket = socket
         self.configuration = configuration
+        self.parser = parser
         self.searchTimeout = (TimeInterval(configuration.maximumBroadcastsBeforeClosing) * configuration.maximumWaitResponseTime) + 0.1
         
         self.socket.delegate = self
-    }
-    
-    deinit {
-        stopSearch()
     }
     
     // MARK: - Search
@@ -94,7 +91,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
         timeoutTimer?.invalidate()
         timeoutTimer = nil
         
-        if socket.isOpen {
+        if socket.state.isActive {
             socket.close()
         }
     }
@@ -135,7 +132,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     func session(_ socket: UDPSocketProtocol, didReceiveResponse response: Data) {
         os_log(.info, "Received potential service")
         guard !response.isEmpty,
-            let service = SSDPServiceParser.parse(response),
+            let service = parser.parse(response),
             searchedForService(service),
             !servicesFoundDuringSearch.contains(service) else {
                 return
