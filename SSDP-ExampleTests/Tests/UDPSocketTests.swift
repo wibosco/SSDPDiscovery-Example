@@ -90,7 +90,7 @@ class UDPSocketTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
-    func testWrite_errorOnSocket_closeSocket_triggerDidEncounterErrorDelegate() {
+    func testWrite_errorOnWrite_closeSocket_triggerDidEncounterErrorDelegate() {
         socket.throwWriteException = true
         
         let didEncounterErrorExpectation = expectation(description: "did encounter error expection")
@@ -172,7 +172,6 @@ class UDPSocketTests: XCTestCase {
         socket.readDatagramClosure = { (_) in
             if readOnce {
                 secondReadFromSocketExpectation.fulfill()
-                
             } else {
                 firstReadFromSocketExpectation.fulfill()
                 
@@ -189,6 +188,46 @@ class UDPSocketTests: XCTestCase {
         sut.write(message: "test data")
         
         waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    func testRead_errorOnRead_closeSocket_triggerDidEncounterErrorDelegate() {
+        socket.throwReadException = true
+        
+        let didEncounterErrorExpectation = expectation(description: "did encounter error expection")
+        delegate.didEncounterErrorClosure = { (_,_) in
+            didEncounterErrorExpectation.fulfill()
+        }
+        
+        let closeExpectation = expectation(description: "close socket expectation")
+        socket.closureClosure = {
+            closeExpectation.fulfill()
+        }
+        
+        sut.write(message: "test message")
+        
+        waitForExpectations(timeout: 3) { (_) in
+            XCTAssertFalse(self.sut.state.isActive)
+        }
+    }
+    
+    func testRead_errorOnClosedSocket_doNotTriggerDidEncounterErrorDelegate() {
+        let didEncounterErrorExpectation = expectation(description: "did encounter error expection")
+        didEncounterErrorExpectation.isInverted = true
+        delegate.didEncounterErrorClosure = { (_,_) in
+            didEncounterErrorExpectation.fulfill()
+        }
+        
+        sut.write(message: "test message")
+        
+        //simulate network call
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.sut.close()
+            self.socket.throwReadException = true
+        }
+        
+        waitForExpectations(timeout: 3) { (_) in
+            XCTAssertFalse(self.sut.state.isActive)
+        }
     }
     
     // MARK: Close

@@ -34,15 +34,15 @@ class MockSocket: SocketProtocol {
     func readDatagram(into data: inout Data) throws {
         readDatagramClosure?(data)
         
-        if throwReadException {
-            throw TestError.test
-        }
-        
-        blockingQueue.sync { [weak self] in
+        try blockingQueue.sync { [weak self] in
             while !(self?.releaseReadQueue ?? true) {
+                if self?.throwReadException ?? false {
+                    throw TestError.test
+                }
+                
                 sleep(1)
             }
-            self?.releaseReadQueue = false
+            releaseReadQueue = false // Reset so that future reads are held until the gate is expilictly opened for them
         }
     }
     
