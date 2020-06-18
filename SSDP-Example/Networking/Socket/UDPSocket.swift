@@ -44,18 +44,66 @@ enum UDPSocketError: Error, Equatable {
     case addressCreationFailure
 }
 
+private class SocketReader {
+    
+    private let socketReaderQueue = DispatchQueue(label: "com.williamboles.udpsocket.reader.queue",  attributes: .concurrent)
+    private var isListening = true
+    
+    // MARK: - Listen
+    
+    func startListening(on socket: SocketProtocol, handler: @escaping ((Result<Data, Error>) -> Void)) {
+        socketReaderQueue.async {
+            do {
+                repeat {
+                    var data = Data()
+                    try socket.readDatagram(into: &data) //blocking call
+                    let result = Result<Data, Error>.success(data)
+                    handler(result)
+                } while self.isListening
+            } catch {
+                if self.isListening { // ignore any errors for non-active sockets
+                    let result = Result<Data, Error>.failure(error)
+                    handler(result)
+                }
+            }
+        }
+    }
+    
+    private func stopListening() {
+        isListening = false
+    }
+}
+
+private class SocketWriter {
+    
+    private let socketWriterQueue = DispatchQueue(label: "com.williamboles.udpsocket.writer.queue",  attributes: .concurrent)
+    
+    // MARK: - Write
+    
+    func write(message: String, on socket: SocketProtocol, to host: String, on port: UInt, errorHandler: @escaping ((Error) -> Void)) {
+        socketWriterQueue.async {
+            do {
+                try socket.write(message, to: host, on: port)
+            } catch {
+                errorHandler(error)
+            }
+        }
+    }
+}
+
 class UDPSocket: UDPSocketProtocol {
     private(set) var state: UDPSocketState = .ready
     
     weak var delegate: UDPSocketDelegate?
     
     private let socket: SocketProtocol
+    private let writer = SocketWriter()
+    private let reader = SocketReader()
     
     private let host: String
     private let port: UInt
     
     private let callbackQueue: OperationQueue
-    private let socketLockQueue = DispatchQueue(label: "com.williamboles.udpsocket.lock.queue",  attributes: .concurrent)
     
     // MARK: - Init
     
@@ -70,7 +118,7 @@ class UDPSocket: UDPSocketProtocol {
     
     func write(message: String) {
         guard !state.isClosed else {
-            os_log(.info, "Attempting to write to a closed socket")
+            os_log(.info, "Attempting to write to a closed socket, create a new socket instead")
             return
         }
         
@@ -78,37 +126,18 @@ class UDPSocket: UDPSocketProtocol {
         state = .active
         
         if shouldStartListening {
-            startListening(on: socketLockQueue)
-        }
-        
-        write(message: message, on: socketLockQueue)
-    }
-    
-    private func write(message: String, on queue: DispatchQueue) {
-        queue.async {
-            do {
-                try self.socket.write(message, to: self.host, on: self.port)
-            } catch {
-                self.closeAndReportError(error)
-            }
-        }
-    }
-    
-    // MARK: - Listen
-    
-    private func startListening(on queue: DispatchQueue) {
-        queue.async {
-            do {
-                repeat {
-                    var data = Data()
-                    try self.socket.readDatagram(into: &data) //blocking call
-                    self.reportResponseReceived(data)
-                } while self.state.isActive
-            } catch {
-                if self.state.isActive { // ignore any errors for non-active sockets
-                    self.closeAndReportError(error)
+            reader.startListening(on: socket) { (result) in
+                switch result {
+                    case .success(let data):
+                        self.reportResponseReceived(data)
+                    case .failure(let error):
+                        self.closeAndReportError(error)
                 }
             }
+        }
+        
+        writer.write(message: message, on: socket, to: host, on: port) { (error) in
+            self.closeAndReportError(error)
         }
     }
     
