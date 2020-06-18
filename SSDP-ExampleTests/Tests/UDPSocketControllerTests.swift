@@ -9,12 +9,13 @@
 import XCTest
 @testable import SSDP_Example
 
-class UDPSocketTests: XCTestCase {
+class UDPSocketControllerTests: XCTestCase {
     
-    var sut: UDPSocket!
+    var sut: UDPSocketController!
     
     var socket: MockSocket!
-    var delegate: MockUDPSocketDelegate!
+    var socketFactory: MockSocketFactory!
+    var delegate: MockUDPSocketControllerDelegate!
     
     let host = "239.255.255.250"
     let port = 1900
@@ -23,14 +24,17 @@ class UDPSocketTests: XCTestCase {
     
     override func setUp() {
         socket = MockSocket()
-        delegate = MockUDPSocketDelegate()
+        socketFactory = MockSocketFactory()
+        socketFactory.udpSocketToBeReturned = socket
+        delegate = MockUDPSocketControllerDelegate()
         
-        sut = UDPSocket(host: host, port: 1900, socket: socket)
+        sut = UDPSocketController(host: host, port: 1900, socketFactory: socketFactory, callbackQueue: .main)
         sut.delegate = delegate
     }
 
     override func tearDown() {
         socket = nil
+        socketFactory = nil
         delegate = nil
         
         sut = nil

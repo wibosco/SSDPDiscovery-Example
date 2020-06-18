@@ -18,8 +18,8 @@ class SSDPSearchSessionTests: XCTestCase {
     let maximumBroadcastsBeforeClosing = UInt(5)
     
     var configuration: SSDPSearchSessionConfiguration!
-    var socketFactory: MockSocketFactory!
-    var udpSocket: MockUDPSocket!
+    var socketControllerFactory: MockSocketControllerFactory!
+    var socketController: MockUDPSocketController!
     var delegate: MockSSDPSearchSessionDelegate!
     var parser: MockSSDPServiceParser!
     
@@ -27,19 +27,19 @@ class SSDPSearchSessionTests: XCTestCase {
     
     override func setUp() {
         configuration = SSDPSearchSessionConfiguration.createMulticastConfiguration(forSearchTarget: searchTarget, maximumWaitResponseTime: maximumWaitResponseTime, maximumBroadcastsBeforeClosing: maximumBroadcastsBeforeClosing)
-        udpSocket = MockUDPSocket()
-        socketFactory = MockSocketFactory()
-        socketFactory.udpSocketToBeReturned = udpSocket
+        socketController = MockUDPSocketController()
+        socketControllerFactory = MockSocketControllerFactory()
+        socketControllerFactory.udpSocketControllerToBeReturned = socketController
         delegate = MockSSDPSearchSessionDelegate()
         parser = MockSSDPServiceParser()
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory, parser: parser)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory, parser: parser)
     }
     
     override func tearDown() {
         configuration = nil
-        socketFactory = nil
-        udpSocket = nil
+        socketControllerFactory = nil
+        socketController = nil
         delegate = nil
         parser = nil
         
@@ -51,15 +51,15 @@ class SSDPSearchSessionTests: XCTestCase {
     // MARK: Init
     
     func testInit_failed() {
-        socketFactory.udpSocketToBeReturned = nil
+        socketControllerFactory.udpSocketControllerToBeReturned = nil
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory, parser: parser)
         
         XCTAssertNil(sut)
     }
     
     func testInit_socketDelegateSet() {
-        XCTAssertTrue(sut === udpSocket.delegate)
+        XCTAssertTrue(sut === socketController.delegate)
     }
     
     // MARK: StartSearch
@@ -72,7 +72,7 @@ class SSDPSearchSessionTests: XCTestCase {
         "MX: \(Int(maximumWaitResponseTime))\r\n\r\n"
         
         let writeToSocketExpectation = expectation(description: "write m-search to socket expectation")
-        udpSocket.writeClosure = { message in
+        socketController.writeClosure = { message in
             XCTAssertEqual(message, expectedMessage)
             
             writeToSocketExpectation.fulfill()
@@ -86,7 +86,7 @@ class SSDPSearchSessionTests: XCTestCase {
     func testStartSearch_zeroMaximumBroadcasts_triggerStopSearchDelegate_doesNotWriteToSocket() {
         configuration = SSDPSearchSessionConfiguration.createMulticastConfiguration(forSearchTarget: "searchTarget", maximumWaitResponseTime: maximumWaitResponseTime, maximumBroadcastsBeforeClosing: 0)
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory, parser: parser)
         sut.delegate = delegate
         
         let didStopSearchingExpectation = expectation(description: "did trigger stop search delegate expectation")
@@ -98,7 +98,7 @@ class SSDPSearchSessionTests: XCTestCase {
         
         let socketWriteExpectation = expectation(description: "should not write m-search message to socket expectation")
         socketWriteExpectation.isInverted = true
-        udpSocket.writeClosure = { _ in
+        socketController.writeClosure = { _ in
             socketWriteExpectation.fulfill()
         }
         
@@ -117,11 +117,11 @@ class SSDPSearchSessionTests: XCTestCase {
         
         let writeMSearchMesagesExpectation = self.expectation(description: "should send multiple M-SEARCH requests expectation")
         writeMSearchMesagesExpectation.expectedFulfillmentCount = 2
-        udpSocket.writeClosure = { _ in
+        socketController.writeClosure = { _ in
             writeMSearchMesagesExpectation.fulfill()
         }
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory)
         sut.delegate = delegate
         
         sut.startSearch()
@@ -134,11 +134,11 @@ class SSDPSearchSessionTests: XCTestCase {
         
         let writeMSearchMesagesExpectation = expectation(description: "should handle edge case of broadcasting only 1 SSDP requests expectation")
         writeMSearchMesagesExpectation.expectedFulfillmentCount = 1
-        udpSocket.writeClosure = { _ in
+        socketController.writeClosure = { _ in
             writeMSearchMesagesExpectation.fulfill()
         }
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory)
         
         sut.startSearch()
         
@@ -149,7 +149,7 @@ class SSDPSearchSessionTests: XCTestCase {
     
     func testStopSearch_closeSocket() {
         let closeExpectation = expectation(description: "close socket expectation")
-        udpSocket.closeClosure = {
+        socketController.closeClosure = {
             closeExpectation.fulfill()
         }
         
@@ -184,7 +184,7 @@ class SSDPSearchSessionTests: XCTestCase {
         // We need this isInverted because the code is executed with a timer
         writeMSearchMesagesAfterStopSearchCalledExpectation.isInverted = true
         
-        udpSocket.writeClosure = { _ in
+        socketController.writeClosure = { _ in
             writeMSearchMesagesExpectation.fulfill()
             
             self.sut.stopSearch()
@@ -197,11 +197,11 @@ class SSDPSearchSessionTests: XCTestCase {
         }
         
         let closeExpectation = expectation(description: "close socket expectation")
-        udpSocket.closeClosure = {
+        socketController.closeClosure = {
             closeExpectation.fulfill()
         }
         
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory)
         
         sut.startSearch()
         
@@ -226,7 +226,7 @@ class SSDPSearchSessionTests: XCTestCase {
         let serviceData = Data(serviceString.utf8)
         
         sut.delegate = delegate
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -246,8 +246,8 @@ class SSDPSearchSessionTests: XCTestCase {
         
         sut.delegate = delegate
         
-        sut.session(udpSocket, didReceiveResponse: serviceData)
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -266,11 +266,11 @@ class SSDPSearchSessionTests: XCTestCase {
         let serviceData = Data(serviceString.utf8)
         
         configuration = SSDPSearchSessionConfiguration.createMulticastConfiguration(forSearchTarget: "ssdp:all", maximumWaitResponseTime: maximumWaitResponseTime, maximumBroadcastsBeforeClosing: maximumBroadcastsBeforeClosing)
-        sut = SSDPSearchSession(configuration: configuration, socketFactory: socketFactory, parser: parser)
+        sut = SSDPSearchSession(configuration: configuration, socketControllerFactory: socketControllerFactory, parser: parser)
         sut.delegate = delegate
         
-        sut.session(udpSocket, didReceiveResponse: serviceData)
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -288,7 +288,7 @@ class SSDPSearchSessionTests: XCTestCase {
         let serviceString = "validService"
         let serviceData = Data(serviceString.utf8)
         
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -305,7 +305,7 @@ class SSDPSearchSessionTests: XCTestCase {
         let serviceString = "invalidService"
         let serviceData = Data(serviceString.utf8)
         
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -321,7 +321,7 @@ class SSDPSearchSessionTests: XCTestCase {
         
         let serviceData = Data()
         
-        sut.session(udpSocket, didReceiveResponse: serviceData)
+        sut.controller(socketController, didReceiveResponse: serviceData)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -330,14 +330,14 @@ class SSDPSearchSessionTests: XCTestCase {
     
     func testDidEncounterError_closeSocket() {
         let closeExpectation = expectation(description: "close socket expectation")
-        udpSocket.closeClosure = {
+        socketController.closeClosure = {
             closeExpectation.fulfill()
         }
-        udpSocket.state = .active
+        socketController.state = .active
         
         let testError = TestError.test
         
-        sut.session(udpSocket, didEncounterError: testError)
+        sut.controller(socketController, didEncounterError: testError)
         
         waitForExpectations(timeout: 3, handler: nil)
     }
@@ -357,7 +357,7 @@ class SSDPSearchSessionTests: XCTestCase {
         let testError = TestError.test
         
         sut.delegate = delegate
-        sut.session(udpSocket, didEncounterError: testError)
+        sut.controller(socketController, didEncounterError: testError)
         
         waitForExpectations(timeout: 3, handler: nil)
     }

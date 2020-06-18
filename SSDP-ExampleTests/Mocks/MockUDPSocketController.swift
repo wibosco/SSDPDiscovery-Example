@@ -9,13 +9,13 @@
 import Foundation
 @testable import SSDP_Example
 
-class MockUDPSocket: UDPSocketProtocol {
-    var state: UDPSocketState = .ready
+class MockUDPSocketController: UDPSocketControllerProtocol {
+    var state: UDPSocketControllerState = .ready
     
     var writeClosure: ((String) -> Void)?
     var closeClosure: (() -> Void)?
     
-    weak var delegate: UDPSocketDelegate? = nil
+    weak var delegate: UDPSocketControllerDelegate? = nil
     
     func write(message: String) {
         state = .active

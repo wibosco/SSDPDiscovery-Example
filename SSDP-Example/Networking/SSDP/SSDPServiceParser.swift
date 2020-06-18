@@ -22,7 +22,6 @@ protocol SSDPServiceParserProtocol {
 }
 
 class SSDPServiceParser: SSDPServiceParserProtocol {
-    
     private let dateFactory: DateFactoryProtocol
     
     // Init

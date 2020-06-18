@@ -8,11 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1026ABCE675A85F69A318252 /* Pods_SSDP_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6461E27D867A2CD63D5D3D0 /* Pods_SSDP_Example.framework */; };
+		3D010720249C07B70056CEAC /* UDPSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D01071C249C07B70056CEAC /* UDPSocketController.swift */; };
+		3D010721249C07B70056CEAC /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D01071E249C07B70056CEAC /* SocketFactory.swift */; };
+		3D010722249C07B70056CEAC /* SocketControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D01071F249C07B70056CEAC /* SocketControllerFactory.swift */; };
+		3D010725249C07DD0056CEAC /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D010724249C07DD0056CEAC /* DateFactory.swift */; };
+		3D010727249C0B5A0056CEAC /* MockSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D010726249C0B5A0056CEAC /* MockSocketFactory.swift */; };
+		3D010729249C0EDA0056CEAC /* UDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D010728249C0EDA0056CEAC /* UDPSocket.swift */; };
 		3D19CE9424951D49008B6C58 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19CE9324951D49008B6C58 /* TestError.swift */; };
-		3D2EEA0B249770ED00E13131 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0A249770ED00E13131 /* DateFactory.swift */; };
 		3D2EEA0D2497726600E13131 /* MockDateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0C2497726600E13131 /* MockDateFactory.swift */; };
 		3D2EEA0F2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */; };
-		3D2EEA112497A7DA00E13131 /* UDPSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */; };
+		3D2EEA112497A7DA00E13131 /* UDPSocketControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EEA102497A7DA00E13131 /* UDPSocketControllerTests.swift */; };
 		3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */; };
 		3D96DBF3249627E000DD35C9 /* SSDPServiceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */; };
 		3D96DBF524962A0000DD35C9 /* MockSSDPServiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */; };
@@ -25,12 +30,10 @@
 		3DF4DCC32493D3C9002D1F50 /* SSDPServiceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */; };
 		3DF4DCC42493D3C9002D1F50 /* SSDPSearchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */; };
 		3DF4DCC52493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */; };
-		3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */; };
-		3DF4DCC72493D3C9002D1F50 /* UDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */; };
-		3DF4DCCA2493D57A002D1F50 /* MockUDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */; };
-		3DF4DCCC2493D5A7002D1F50 /* MockUDPSocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */; };
+		3DF4DCCA2493D57A002D1F50 /* MockUDPSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCC92493D57A002D1F50 /* MockUDPSocketController.swift */; };
+		3DF4DCCC2493D5A7002D1F50 /* MockSocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCB2493D5A7002D1F50 /* MockSocketControllerDelegate.swift */; };
 		3DF4DCCE2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */; };
-		3DF4DCD02493D767002D1F50 /* MockSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */; };
+		3DF4DCD02493D767002D1F50 /* MockSocketControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCCF2493D767002D1F50 /* MockSocketControllerFactory.swift */; };
 		3DF4DCD824941765002D1F50 /* SSDPSearchSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */; };
 		3DF4DCDA24941781002D1F50 /* MockSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4DCD924941781002D1F50 /* MockSocket.swift */; };
 /* End PBXBuildFile section */
@@ -47,11 +50,16 @@
 
 /* Begin PBXFileReference section */
 		057EFE53D5342BFFA9121E15 /* Pods-SSDP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SSDP-Example.debug.xcconfig"; path = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3D01071C249C07B70056CEAC /* UDPSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPSocketController.swift; sourceTree = "<group>"; };
+		3D01071E249C07B70056CEAC /* SocketFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketFactory.swift; sourceTree = "<group>"; };
+		3D01071F249C07B70056CEAC /* SocketControllerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketControllerFactory.swift; sourceTree = "<group>"; };
+		3D010724249C07DD0056CEAC /* DateFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
+		3D010726249C0B5A0056CEAC /* MockSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocketFactory.swift; sourceTree = "<group>"; };
+		3D010728249C0EDA0056CEAC /* UDPSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPSocket.swift; sourceTree = "<group>"; };
 		3D19CE9324951D49008B6C58 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
-		3D2EEA0A249770ED00E13131 /* DateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		3D2EEA0C2497726600E13131 /* MockDateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDateFactory.swift; sourceTree = "<group>"; };
 		3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfigurationTests.swift; sourceTree = "<group>"; };
-		3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPSocketTests.swift; sourceTree = "<group>"; };
+		3D2EEA102497A7DA00E13131 /* UDPSocketControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPSocketControllerTests.swift; sourceTree = "<group>"; };
 		3D80933022260060005CC9F4 /* SSDPResponseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPResponseTableViewCell.swift; sourceTree = "<group>"; };
 		3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPServiceParserTests.swift; sourceTree = "<group>"; };
 		3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSSDPServiceParser.swift; sourceTree = "<group>"; };
@@ -67,12 +75,10 @@
 		3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPServiceParser.swift; sourceTree = "<group>"; };
 		3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSession.swift; sourceTree = "<group>"; };
 		3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionConfiguration.swift; sourceTree = "<group>"; };
-		3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketFactory.swift; sourceTree = "<group>"; };
-		3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPSocket.swift; sourceTree = "<group>"; };
-		3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUDPSocket.swift; sourceTree = "<group>"; };
-		3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUDPSocketDelegate.swift; sourceTree = "<group>"; };
+		3DF4DCC92493D57A002D1F50 /* MockUDPSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUDPSocketController.swift; sourceTree = "<group>"; };
+		3DF4DCCB2493D5A7002D1F50 /* MockSocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocketControllerDelegate.swift; sourceTree = "<group>"; };
 		3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSSDPSearchSessionDelegate.swift; sourceTree = "<group>"; };
-		3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocketFactory.swift; sourceTree = "<group>"; };
+		3DF4DCCF2493D767002D1F50 /* MockSocketControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocketControllerFactory.swift; sourceTree = "<group>"; };
 		3DF4DCD424941765002D1F50 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPSearchSessionTests.swift; sourceTree = "<group>"; };
 		3DF4DCD924941781002D1F50 /* MockSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSocket.swift; sourceTree = "<group>"; };
@@ -99,6 +105,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D01071D249C07B70056CEAC /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				3D01071E249C07B70056CEAC /* SocketFactory.swift */,
+				3D01071F249C07B70056CEAC /* SocketControllerFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		3D010723249C07DD0056CEAC /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				3D010724249C07DD0056CEAC /* DateFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		3D19CE9224951D3C008B6C58 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,11 +220,11 @@
 		3DF4DCBA2493D3C9002D1F50 /* SSDP */ = {
 			isa = PBXGroup;
 			children = (
+				3D010723249C07DD0056CEAC /* Factories */,
 				3DF4DCBB2493D3C9002D1F50 /* SSDPService.swift */,
 				3DF4DCBC2493D3C9002D1F50 /* SSDPServiceParser.swift */,
 				3DF4DCBD2493D3C9002D1F50 /* SSDPSearchSession.swift */,
 				3DF4DCBE2493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift */,
-				3D2EEA0A249770ED00E13131 /* DateFactory.swift */,
 			);
 			path = SSDP;
 			sourceTree = "<group>";
@@ -209,8 +232,9 @@
 		3DF4DCBF2493D3C9002D1F50 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				3DF4DCC02493D3C9002D1F50 /* SocketFactory.swift */,
-				3DF4DCC12493D3C9002D1F50 /* UDPSocket.swift */,
+				3D01071D249C07B70056CEAC /* Factories */,
+				3D01071C249C07B70056CEAC /* UDPSocketController.swift */,
+				3D010728249C0EDA0056CEAC /* UDPSocket.swift */,
 			);
 			path = Socket;
 			sourceTree = "<group>";
@@ -218,13 +242,14 @@
 		3DF4DCC82493D56D002D1F50 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				3DF4DCD924941781002D1F50 /* MockSocket.swift */,
-				3DF4DCCF2493D767002D1F50 /* MockSocketFactory.swift */,
-				3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */,
-				3DF4DCC92493D57A002D1F50 /* MockUDPSocket.swift */,
-				3DF4DCCB2493D5A7002D1F50 /* MockUDPSocketDelegate.swift */,
-				3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */,
 				3D2EEA0C2497726600E13131 /* MockDateFactory.swift */,
+				3DF4DCD924941781002D1F50 /* MockSocket.swift */,
+				3DF4DCCB2493D5A7002D1F50 /* MockSocketControllerDelegate.swift */,
+				3DF4DCCF2493D767002D1F50 /* MockSocketControllerFactory.swift */,
+				3D010726249C0B5A0056CEAC /* MockSocketFactory.swift */,
+				3DF4DCCD2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift */,
+				3D96DBF424962A0000DD35C9 /* MockSSDPServiceParser.swift */,
+				3DF4DCC92493D57A002D1F50 /* MockUDPSocketController.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -243,7 +268,7 @@
 				3DF4DCD624941765002D1F50 /* SSDPSearchSessionTests.swift */,
 				3D96DBF2249627E000DD35C9 /* SSDPServiceParserTests.swift */,
 				3D2EEA0E2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift */,
-				3D2EEA102497A7DA00E13131 /* UDPSocketTests.swift */,
+				3D2EEA102497A7DA00E13131 /* UDPSocketControllerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -417,14 +442,16 @@
 			files = (
 				3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */,
 				3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */,
-				3D2EEA0B249770ED00E13131 /* DateFactory.swift in Sources */,
-				3DF4DCC72493D3C9002D1F50 /* UDPSocket.swift in Sources */,
+				3D010720249C07B70056CEAC /* UDPSocketController.swift in Sources */,
+				3D010722249C07B70056CEAC /* SocketControllerFactory.swift in Sources */,
+				3D010721249C07B70056CEAC /* SocketFactory.swift in Sources */,
+				3D010725249C07DD0056CEAC /* DateFactory.swift in Sources */,
 				3DD8DF932219CFBD00F92FCC /* AppDelegate.swift in Sources */,
 				3DF4DCC52493D3C9002D1F50 /* SSDPSearchSessionConfiguration.swift in Sources */,
+				3D010729249C0EDA0056CEAC /* UDPSocket.swift in Sources */,
 				3DF4DCC22493D3C9002D1F50 /* SSDPService.swift in Sources */,
 				3DF4DCC42493D3C9002D1F50 /* SSDPSearchSession.swift in Sources */,
 				3DF4DCC32493D3C9002D1F50 /* SSDPServiceParser.swift in Sources */,
-				3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,12 +459,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF4DCCA2493D57A002D1F50 /* MockUDPSocket.swift in Sources */,
-				3DF4DCCC2493D5A7002D1F50 /* MockUDPSocketDelegate.swift in Sources */,
+				3DF4DCCA2493D57A002D1F50 /* MockUDPSocketController.swift in Sources */,
+				3D010727249C0B5A0056CEAC /* MockSocketFactory.swift in Sources */,
+				3DF4DCCC2493D5A7002D1F50 /* MockSocketControllerDelegate.swift in Sources */,
 				3D2EEA0F2497A64700E13131 /* SSDPSearchSessionConfigurationTests.swift in Sources */,
 				3D96DBF3249627E000DD35C9 /* SSDPServiceParserTests.swift in Sources */,
-				3D2EEA112497A7DA00E13131 /* UDPSocketTests.swift in Sources */,
-				3DF4DCD02493D767002D1F50 /* MockSocketFactory.swift in Sources */,
+				3D2EEA112497A7DA00E13131 /* UDPSocketControllerTests.swift in Sources */,
+				3DF4DCD02493D767002D1F50 /* MockSocketControllerFactory.swift in Sources */,
 				3D2EEA0D2497726600E13131 /* MockDateFactory.swift in Sources */,
 				3DF4DCCE2493D5EA002D1F50 /* MockSSDPSearchSessionDelegate.swift in Sources */,
 				3DF4DCDA24941781002D1F50 /* MockSocket.swift in Sources */,

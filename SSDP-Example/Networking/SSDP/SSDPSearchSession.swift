@@ -26,10 +26,10 @@ protocol SSDPSearchSessionProtocol {
     func stopSearch()
 }
 
-class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
+class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate {
     weak var delegate: SSDPSearchSessionDelegate?
     
-    private let socket: UDPSocketProtocol
+    private let socketController: UDPSocketControllerProtocol
     private let configuration: SSDPSearchSessionConfiguration
     private let parser: SSDPServiceParserProtocol
     
@@ -42,16 +42,16 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     
     // MARK: - Init
     
-    init?(configuration: SSDPSearchSessionConfiguration, socketFactory: SocketFactoryProtocol = SocketFactory(), parser: SSDPServiceParserProtocol = SSDPServiceParser()) {
-        guard let socket = socketFactory.createUDPSocket(host: configuration.host, port: configuration.port) else {
+    init?(configuration: SSDPSearchSessionConfiguration, socketControllerFactory: SocketControllerFactoryProtocol = SocketControllerFactory(), parser: SSDPServiceParserProtocol = SSDPServiceParser()) {
+        guard let socketController = socketControllerFactory.createUDPSocketController(host: configuration.host, port: configuration.port, callbackQueue: .main) else {
             return nil
         }
-        self.socket = socket
+        self.socketController = socketController
         self.configuration = configuration
         self.parser = parser
         self.searchTimeout = (TimeInterval(configuration.maximumBroadcastsBeforeClosing) * configuration.maximumWaitResponseTime) + 0.1
         
-        self.socket.delegate = self
+        self.socketController.delegate = self
     }
     
     // MARK: - Search
@@ -91,8 +91,8 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
         timeoutTimer?.invalidate()
         timeoutTimer = nil
         
-        if socket.state.isActive {
-            socket.close()
+        if socketController.state.isActive {
+            socketController.close()
         }
     }
     
@@ -124,12 +124,12 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
     
     private func writeToSocket(_ message: String) {
         os_log(.info, "Writing to socket: \r%{public}@", message)
-        socket.write(message: message)
+        socketController.write(message: message)
     }
     
-    // MARK: - UDPSocketDelegate
+    // MARK: - UDPSocketControllerDelegate
     
-    func session(_ socket: UDPSocketProtocol, didReceiveResponse response: Data) {
+    func controller(_ controller: UDPSocketControllerProtocol, didReceiveResponse response: Data) {
         guard !response.isEmpty,
             let service = parser.parse(response),
             searchedForService(service),
@@ -144,7 +144,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketDelegate {
         delegate?.searchSession(self, didFindService: service)
     }
     
-    func session(_ socket: UDPSocketProtocol, didEncounterError error: Error) {
+    func controller(_ controller: UDPSocketControllerProtocol, didEncounterError error: Error) {
         os_log(.info, "Encountered socket error: \r%{public}@", error.localizedDescription)
         let wrappedError = SSDPSearchSessionError.searchAborted(error)
         delegate?.searchSession(self, didEncounterError: wrappedError)
