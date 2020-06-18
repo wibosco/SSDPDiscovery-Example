@@ -1,4 +1,4 @@
-framework module Socket {
+framework module BlueSocket {
   umbrella header "BlueSocket-umbrella.h"
 
   export *

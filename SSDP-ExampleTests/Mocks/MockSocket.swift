@@ -9,7 +9,7 @@
 import Foundation
 @testable import SSDP_Example
 
-class MockSocket: SocketProtocol {
+class MockSocket: Socket {
     var isActive: Bool = false
     
     var writeClosure: ((String, String, UInt) -> Void)?

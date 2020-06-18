@@ -49,7 +49,7 @@ class UDPSocket: UDPSocketProtocol {
     
     weak var delegate: UDPSocketDelegate?
     
-    private let socket: SocketProtocol
+    private let socket: Socket
     
     private let host: String
     private let port: UInt
@@ -59,7 +59,7 @@ class UDPSocket: UDPSocketProtocol {
     
     // MARK: - Init
     
-    init(host: String, port: UInt, socket: SocketProtocol, callbackQueue: OperationQueue = .main) {
+    init(host: String, port: UInt, socket: Socket, callbackQueue: OperationQueue = .main) {
         self.host = host
         self.port = port
         self.socket = socket

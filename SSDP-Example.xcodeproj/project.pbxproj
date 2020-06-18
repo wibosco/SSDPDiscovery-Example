@@ -375,11 +375,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
+				"${BUILT_PRODUCTS_DIR}/BlueSocket/BlueSocket.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlueSocket.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -415,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */,
 				3DD8DF952219CFBD00F92FCC /* SSDPDiscoveryViewController.swift in Sources */,
 				3D80933122260060005CC9F4 /* SSDPResponseTableViewCell.swift in Sources */,
 				3D2EEA0B249770ED00E13131 /* DateFactory.swift in Sources */,
@@ -424,7 +425,6 @@
 				3DF4DCC22493D3C9002D1F50 /* SSDPService.swift in Sources */,
 				3DF4DCC42493D3C9002D1F50 /* SSDPSearchSession.swift in Sources */,
 				3DF4DCC32493D3C9002D1F50 /* SSDPServiceParser.swift in Sources */,
-				3DF4DCC62493D3C9002D1F50 /* SocketFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

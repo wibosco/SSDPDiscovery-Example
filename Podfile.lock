@@ -2,15 +2,21 @@ PODS:
   - BlueSocket (1.0.52)
 
 DEPENDENCIES:
-  - BlueSocket (= 1.0.52)
+  - BlueSocket (from `https://github.com/wibosco/BlueSocket.git`, branch `master`)
 
-SPEC REPOS:
-  trunk:
-    - BlueSocket
+EXTERNAL SOURCES:
+  BlueSocket:
+    :branch: master
+    :git: https://github.com/wibosco/BlueSocket.git
+
+CHECKOUT OPTIONS:
+  BlueSocket:
+    :commit: 64ca16b5e00046263ff5d6cff43142302e2ad05e
+    :git: https://github.com/wibosco/BlueSocket.git
 
 SPEC CHECKSUMS:
-  BlueSocket: 1acd943acb07b55905291d608649fcfbf8cbd57d
+  BlueSocket: 95fb7f2d79c3ae6c3ab5a63542d62d81048a7c03
 
-PODFILE CHECKSUM: f48f83541661ca7db04d0d8a4d336bc135efd0e1
+PODFILE CHECKSUM: 39b9a6708b7cbc714dbbca57befa05d3836f8146
 
 COCOAPODS: 1.9.3

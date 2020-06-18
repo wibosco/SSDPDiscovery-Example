@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double SocketVersionNumber;
-FOUNDATION_EXPORT const unsigned char SocketVersionString[];
+FOUNDATION_EXPORT double BlueSocketVersionNumber;
+FOUNDATION_EXPORT const unsigned char BlueSocketVersionString[];
 
