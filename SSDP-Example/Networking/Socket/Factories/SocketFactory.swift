@@ -10,14 +10,14 @@ import Foundation
 import Socket
 
 protocol SocketFactoryProtocol {
-    func createUDPSocket(host: String, port: UInt) -> UDPSocketProtocol?
+    func createUDPSocket() -> UDPSocketProtocol?
 }
 
 class SocketFactory: SocketFactoryProtocol {
     
     // MARK: - UDP
     
-    func createUDPSocket(host: String, port: UInt) -> UDPSocketProtocol? {
+    func createUDPSocket() -> UDPSocketProtocol? {
         guard let socket = try? Socket.createUDPSocket() else {
             return nil
         }
