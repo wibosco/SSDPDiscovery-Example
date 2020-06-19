@@ -56,7 +56,7 @@ class UDPSocketController: UDPSocketControllerProtocol {
     
     // MARK: - Init
     
-    init?(host: String, port: UInt, socketFactory: SocketFactoryProtocol = SocketFactory(), callbackQueue: OperationQueue) {
+    init?(host: String, port: UInt, socketFactory: SocketFactoryProtocol, callbackQueue: OperationQueue) {
         guard let socket = socketFactory.createUDPSocket(host: host, port: port) else {
              return nil
          }

@@ -10,12 +10,12 @@ import Foundation
 @testable import SSDP_Example
 
 class MockSocketControllerFactory: SocketControllerFactoryProtocol {
-    var createUDPSocketControllerClosure: ((String, UInt, OperationQueue) -> Void)?
+    var createUDPSocketControllerClosure: ((String, UInt, SocketFactoryProtocol, OperationQueue) -> Void)?
     
     var udpSocketControllerToBeReturned: UDPSocketControllerProtocol?
     
-    func createUDPSocketController(host: String, port: UInt, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol? {
-        createUDPSocketControllerClosure?(host, port, callbackQueue)
+    func createUDPSocketController(host: String, port: UInt, socketFactory: SocketFactoryProtocol, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol? {
+        createUDPSocketControllerClosure?(host, port, socketFactory, callbackQueue)
         
         return udpSocketControllerToBeReturned
     }

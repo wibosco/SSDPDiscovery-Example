@@ -43,7 +43,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
     // MARK: - Init
     
     init?(configuration: SSDPSearchSessionConfiguration, socketControllerFactory: SocketControllerFactoryProtocol = SocketControllerFactory(), parser: SSDPServiceParserProtocol = SSDPServiceParser()) {
-        guard let socketController = socketControllerFactory.createUDPSocketController(host: configuration.host, port: configuration.port, callbackQueue: .main) else {
+        guard let socketController = socketControllerFactory.createUDPSocketController(host: configuration.host, port: configuration.port, socketFactory: SocketFactory(), callbackQueue: .main) else {
             return nil
         }
         self.socketController = socketController

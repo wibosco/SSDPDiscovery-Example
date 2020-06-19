@@ -9,7 +9,7 @@
 import Foundation
 import Socket
 
-enum SocketError: Error, Equatable {
+enum UDPSocketError: Error, Equatable {
     case addressCreationFailure
 }
 
@@ -22,7 +22,7 @@ protocol UDPSocketProtocol {
 extension Socket: UDPSocketProtocol {
     func write(_ string: String, to host: String, on port: UInt) throws {
         guard let address = Socket.createAddress(for: host, on: Int32(port)) else {
-            throw(SocketError.addressCreationFailure)
+            throw(UDPSocketError.addressCreationFailure)
         }
         try write(from: string, to: address)
     }

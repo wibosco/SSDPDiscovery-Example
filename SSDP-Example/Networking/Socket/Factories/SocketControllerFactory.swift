@@ -9,14 +9,14 @@
 import Foundation
 
 protocol SocketControllerFactoryProtocol {
-    func createUDPSocketController(host: String, port: UInt, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol?
+    func createUDPSocketController(host: String, port: UInt, socketFactory: SocketFactoryProtocol, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol?
 }
 
 class SocketControllerFactory: SocketControllerFactoryProtocol {
     
     // MARK: - UDP
     
-    func createUDPSocketController(host: String, port: UInt, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol? {
-        UDPSocketController(host: host, port: port, callbackQueue: callbackQueue)
+    func createUDPSocketController(host: String, port: UInt, socketFactory: SocketFactoryProtocol, callbackQueue: OperationQueue) -> UDPSocketControllerProtocol? {
+        UDPSocketController(host: host, port: port, socketFactory: socketFactory, callbackQueue: callbackQueue)
     }
 }
