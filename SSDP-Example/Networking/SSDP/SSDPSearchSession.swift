@@ -40,6 +40,16 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
     private var broadcastTimer: Timer?
     private var timeoutTimer: Timer?
     
+    private lazy var mSearchMessage = {
+        // Each line must end in `\r\n`
+        return "M-SEARCH * HTTP/1.1\r\n" +
+            "HOST: \(configuration.host):\(configuration.port)\r\n" +
+            "MAN: \"ssdp:discover\"\r\n" +
+            "ST: \(configuration.searchTarget)\r\n" +
+            "MX: \(Int(configuration.maximumWaitResponseTime))\r\n" +
+        "\r\n"
+    }()
+    
     // MARK: - Init
     
     init?(configuration: SSDPSearchSessionConfiguration, socketControllerFactory: SocketControllerFactoryProtocol = SocketControllerFactory(), parser: SSDPServiceParserProtocol = SSDPServiceParser()) {
@@ -58,7 +68,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
     
     func startSearch() {
         guard configuration.maximumBroadcastsBeforeClosing > 0 else {
-            delegate?.searchSessionDidStopSearch(self, foundServices:servicesFoundDuringSearch)
+            delegate?.searchSessionDidStopSearch(self, foundServices: servicesFoundDuringSearch)
             return
         }
         
@@ -98,31 +108,21 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
     
     // MARK: Write
     
-    private func searchMessage() -> String {
-        // Each line must end in `\r\n`
-        return "M-SEARCH * HTTP/1.1\r\n" +
-            "HOST: \(configuration.host):\(configuration.port)\r\n" +
-            "MAN: \"ssdp:discover\"\r\n" +
-            "ST: \(configuration.searchTarget)\r\n" +
-            "MX: \(Int(configuration.maximumWaitResponseTime))\r\n" +
-        "\r\n"
-    }
-    
     private func sendMSearchMessages() {
-        let searchMessage = self.searchMessage()
+        let message = mSearchMessage
         
         if configuration.maximumBroadcastsBeforeClosing > 1 {
             let window = searchTimeout - configuration.maximumWaitResponseTime
             let interval = window / TimeInterval((configuration.maximumBroadcastsBeforeClosing - 1))
             
             broadcastTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [weak self] (timer) in
-                self?.writeToSocket(searchMessage)
+                self?.socketController.write(message: message)
             })
         }
-        writeToSocket(searchMessage)
+        writeMessageToSocket(message)
     }
     
-    private func writeToSocket(_ message: String) {
+    private func writeMessageToSocket(_ message: String) {
         os_log(.info, "Writing to socket: \r%{public}@", message)
         socketController.write(message: message)
     }
@@ -137,7 +137,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
                 return
         }
         
-        os_log(.info, "Received valid service")
+        os_log(.info, "Received a valid service response")
         
         servicesFoundDuringSearch.append(service)
         
