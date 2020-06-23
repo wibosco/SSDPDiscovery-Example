@@ -24,6 +24,8 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearchSessionDelegate, 
         tableView.reloadData()
         toggleSearchingUI()
         
+        searchSession?.stopSearch()
+        
         let configuration = SSDPSearchSessionConfiguration.createMulticastConfiguration(forSearchTarget: "ssdp:all")
         searchSession = SSDPSearchSession(configuration: configuration)
         searchSession?.delegate = self
@@ -55,7 +57,7 @@ class SSDPDiscoveryViewController: UIViewController, SSDPSearchSessionDelegate, 
         }
     }
     
-    func searchSession(_ searchSession: SSDPSearchSession, didAbortWithError error: SSDPSearchSessionError) {
+    func searchSession(_ searchSession: SSDPSearchSession, didEncounterError error: SSDPSearchSessionError) {
         guard self.searchSession === searchSession else {
             return
         }
