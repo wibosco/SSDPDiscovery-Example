@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		088322E81AC101AC449C5BBCEBE462DA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21574A8FB4A4A2F4C43ABFEFF803CB3 /* Socket.swift */; };
-		1760AF3E2CF96191F7758264E33AD9E6 /* BlueSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0F7CB91F00C6050765C87DA7620C01 /* BlueSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2059D8B5FFE163E510E12C5A6A2E61F0 /* SocketUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D3F4459419BE81C106E0AB3E0A1A0F /* SocketUtils.swift */; };
-		20ABA3F900EAFCE434322581110ADEF2 /* SocketProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F917B079DD9A7B264CE51E58A406E6 /* SocketProtocols.swift */; };
-		2A5801F46901AC0C49F2234ABF35201A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		7DAD938EF7D5A9E1F1B9AA779A72D53A /* Pods-SSDP-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 05324CA7D48E96239DB18EC1C6B89A78 /* Pods-SSDP-Example-dummy.m */; };
-		90347FFE967F9F20BE4960708ACBB4EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		ADE08860D83F49F54F41FF5BED985B45 /* Pods-SSDP-Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 69151402E3851C4633168C7BE75C679D /* Pods-SSDP-Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E654F0639E4FC3DEE1BEA8BB63F55745 /* BlueSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B65232C47263EFD17119D790497738A2 /* BlueSocket-dummy.m */; };
+		08F2F19EA22AA61B78DBFA3A8506392E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		1DFCCFB09BB7BCFD530BED8031393C87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		3E59E3E4BC7A2FE584D3DEDC0DA6C7A1 /* SocketProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F917B079DD9A7B264CE51E58A406E6 /* SocketProtocols.swift */; };
+		71368D924A41E66DF5B93BD7864ADAF3 /* BlueSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B65232C47263EFD17119D790497738A2 /* BlueSocket-dummy.m */; };
+		C06ED68B440EF54FD9A7D89D11CB754A /* Pods-SSDP-Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 69151402E3851C4633168C7BE75C679D /* Pods-SSDP-Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1409F065AA309817179042BFAFFBFF8 /* BlueSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0F7CB91F00C6050765C87DA7620C01 /* BlueSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E531C289D4B491BCA8F208C8FBC99A23 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21574A8FB4A4A2F4C43ABFEFF803CB3 /* Socket.swift */; };
+		EC736684643191B22FFC6D362550F702 /* SocketUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D3F4459419BE81C106E0AB3E0A1A0F /* SocketUtils.swift */; };
+		FB6AF56DBCC881DB2EAB4AAD1BDFBD24 /* Pods-SSDP-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 05324CA7D48E96239DB18EC1C6B89A78 /* Pods-SSDP-Example-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		195562164894009B64158F855EA87CCB /* PBXContainerItemProxy */ = {
+		F59333EA614B3D3D6CA6005AA884D87B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -35,39 +35,39 @@
 		0CC24A6F92CD5FF03CDD6E2F139A292F /* Pods-SSDP-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SSDP-Example.release.xcconfig"; sourceTree = "<group>"; };
 		16FDF11F2F5DA96F470B0FE7A8AB07A4 /* BlueSocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BlueSocket.release.xcconfig; sourceTree = "<group>"; };
 		200BD0894EFD04125365785434F1B145 /* Pods-SSDP-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SSDP-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2EAA4A7F572E0FFFDA0F24140040D388 /* Socket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Socket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2EAA4A7F572E0FFFDA0F24140040D388 /* BlueSocket */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BlueSocket; path = Socket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		561F1B364E187424B267A61A16756154 /* BlueSocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BlueSocket.debug.xcconfig; sourceTree = "<group>"; };
 		68D3F4459419BE81C106E0AB3E0A1A0F /* SocketUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketUtils.swift; path = Sources/Socket/SocketUtils.swift; sourceTree = "<group>"; };
 		69151402E3851C4633168C7BE75C679D /* Pods-SSDP-Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SSDP-Example-umbrella.h"; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7C5F31D38EF4CC8B87E6FAFA575D8F7A /* BlueSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BlueSocket-prefix.pch"; sourceTree = "<group>"; };
 		84EF91BFB1918970D86F14A6831E3076 /* Pods-SSDP-Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SSDP-Example-frameworks.sh"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A21574A8FB4A4A2F4C43ABFEFF803CB3 /* Socket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Socket.swift; path = Sources/Socket/Socket.swift; sourceTree = "<group>"; };
 		A93CD0E4B93A82B585C03B7F4C98BB4E /* Pods-SSDP-Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SSDP-Example.modulemap"; sourceTree = "<group>"; };
 		AF0F7CB91F00C6050765C87DA7620C01 /* BlueSocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BlueSocket-umbrella.h"; sourceTree = "<group>"; };
 		B65232C47263EFD17119D790497738A2 /* BlueSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BlueSocket-dummy.m"; sourceTree = "<group>"; };
 		C2BC6466FC5ED78D10D601DB974071DC /* BlueSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BlueSocket.modulemap; sourceTree = "<group>"; };
 		E9F917B079DD9A7B264CE51E58A406E6 /* SocketProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketProtocols.swift; path = Sources/Socket/SocketProtocols.swift; sourceTree = "<group>"; };
-		F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods_SSDP_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SSDP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods-SSDP-Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-SSDP-Example"; path = Pods_SSDP_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6B8A1A109D2B42CE34DBA1184DD372 /* Pods-SSDP-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SSDP-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FF1D7E5B83C40D02DBD277ADC8661438 /* Pods-SSDP-Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SSDP-Example-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		318EB94C6EE9E449F498766C3FF5B70F /* Frameworks */ = {
+		61852C09BC7297D1307FF84DCD3FB2BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5801F46901AC0C49F2234ABF35201A /* Foundation.framework in Frameworks */,
+				1DFCCFB09BB7BCFD530BED8031393C87 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC3DA349BB4845429B354BB85122E19E /* Frameworks */ = {
+		F6E247E16D3A5443B7943356381A79B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90347FFE967F9F20BE4960708ACBB4EC /* Foundation.framework in Frameworks */,
+				08F2F19EA22AA61B78DBFA3A8506392E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +97,15 @@
 			path = "../Target Support Files/BlueSocket";
 			sourceTree = "<group>";
 		};
+		3A5323EC6D740657AB9DE95CAAEEE410 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2EAA4A7F572E0FFFDA0F24140040D388 /* BlueSocket */,
+				F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods-SSDP-Example */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4ABDC2F7466FFC9115DDF538A5831F4B /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,19 +114,10 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		A5A2B4A9BF3CE7B0BD58E4B1D55253A3 /* Products */ = {
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods_SSDP_Example.framework */,
-				2EAA4A7F572E0FFFDA0F24140040D388 /* Socket.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -128,7 +128,7 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				11CE1E87E37E7513BA08D84D433FE789 /* Pods */,
-				A5A2B4A9BF3CE7B0BD58E4B1D55253A3 /* Products */,
+				3A5323EC6D740657AB9DE95CAAEEE410 /* Products */,
 				4ABDC2F7466FFC9115DDF538A5831F4B /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -136,7 +136,7 @@
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,25 +166,26 @@
 				68D3F4459419BE81C106E0AB3E0A1A0F /* SocketUtils.swift */,
 				2E3A7CC14981F7B2664EA1EA39328B3C /* Support Files */,
 			);
+			name = BlueSocket;
 			path = BlueSocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		DAD60D486B85783A1D48B66FD76475B6 /* Headers */ = {
+		632DBBC6F17F917542FC9A518A8BC2E9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADE08860D83F49F54F41FF5BED985B45 /* Pods-SSDP-Example-umbrella.h in Headers */,
+				D1409F065AA309817179042BFAFFBFF8 /* BlueSocket-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEDCED618AC4CF562ECA334E62995813 /* Headers */ = {
+		8738CDACE06A323D8BD9C7E62BA1ED90 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1760AF3E2CF96191F7758264E33AD9E6 /* BlueSocket-umbrella.h in Headers */,
+				C06ED68B440EF54FD9A7D89D11CB754A /* Pods-SSDP-Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,39 +194,39 @@
 /* Begin PBXNativeTarget section */
 		83B11369220177F4B24D6C025F53DE2B /* Pods-SSDP-Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE0719F13FE23B1B928D62196544A148 /* Build configuration list for PBXNativeTarget "Pods-SSDP-Example" */;
+			buildConfigurationList = 15A62871E5FF369DD8D5B9D4ED4CEB69 /* Build configuration list for PBXNativeTarget "Pods-SSDP-Example" */;
 			buildPhases = (
-				DAD60D486B85783A1D48B66FD76475B6 /* Headers */,
-				29EC2247E3C65B29FBFAE237A818110F /* Sources */,
-				318EB94C6EE9E449F498766C3FF5B70F /* Frameworks */,
-				B29420EEE89F8DCEBF114872B5896111 /* Resources */,
+				8738CDACE06A323D8BD9C7E62BA1ED90 /* Headers */,
+				B18F92761B19C0136C2B9DCB0FE38398 /* Sources */,
+				F6E247E16D3A5443B7943356381A79B5 /* Frameworks */,
+				1718C53FC571B51EE87F6F4894374142 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C1F61EB5D49CA477253E23BE6E8CE0A2 /* PBXTargetDependency */,
+				E2B28734A80BFC7FA18E4ECD0D28B6C8 /* PBXTargetDependency */,
 			);
 			name = "Pods-SSDP-Example";
-			productName = "Pods-SSDP-Example";
-			productReference = F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods_SSDP_Example.framework */;
+			productName = Pods_SSDP_Example;
+			productReference = F8EF5B4C60ACD906D70550CBFFA7A63D /* Pods-SSDP-Example */;
 			productType = "com.apple.product-type.framework";
 		};
 		9717BE7FCECEF299173A5D71C18B19F5 /* BlueSocket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 87A03B7CDC3F58F8F7D420134806E925 /* Build configuration list for PBXNativeTarget "BlueSocket" */;
+			buildConfigurationList = F3AAF744EA1BD42DDBAD1A3FC75571A1 /* Build configuration list for PBXNativeTarget "BlueSocket" */;
 			buildPhases = (
-				EEDCED618AC4CF562ECA334E62995813 /* Headers */,
-				BA99ED16FD44DA8B3FD690B27CBA2194 /* Sources */,
-				FC3DA349BB4845429B354BB85122E19E /* Frameworks */,
-				C8370E91C272F1B31D13EFAFEA45DDF0 /* Resources */,
+				632DBBC6F17F917542FC9A518A8BC2E9 /* Headers */,
+				8EACD919D707AA5DA85D2BD71D189045 /* Sources */,
+				61852C09BC7297D1307FF84DCD3FB2BE /* Frameworks */,
+				3E626B52215F6AC98AB3B21168650751 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BlueSocket;
-			productName = BlueSocket;
-			productReference = 2EAA4A7F572E0FFFDA0F24140040D388 /* Socket.framework */;
+			productName = Socket;
+			productReference = 2EAA4A7F572E0FFFDA0F24140040D388 /* BlueSocket */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -234,19 +235,19 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1150;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = A5A2B4A9BF3CE7B0BD58E4B1D55253A3 /* Products */;
+			productRefGroup = 3A5323EC6D740657AB9DE95CAAEEE410 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -257,14 +258,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B29420EEE89F8DCEBF114872B5896111 /* Resources */ = {
+		1718C53FC571B51EE87F6F4894374142 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8370E91C272F1B31D13EFAFEA45DDF0 /* Resources */ = {
+		3E626B52215F6AC98AB3B21168650751 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -274,41 +275,140 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		29EC2247E3C65B29FBFAE237A818110F /* Sources */ = {
+		8EACD919D707AA5DA85D2BD71D189045 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DAD938EF7D5A9E1F1B9AA779A72D53A /* Pods-SSDP-Example-dummy.m in Sources */,
+				71368D924A41E66DF5B93BD7864ADAF3 /* BlueSocket-dummy.m in Sources */,
+				E531C289D4B491BCA8F208C8FBC99A23 /* Socket.swift in Sources */,
+				3E59E3E4BC7A2FE584D3DEDC0DA6C7A1 /* SocketProtocols.swift in Sources */,
+				EC736684643191B22FFC6D362550F702 /* SocketUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BA99ED16FD44DA8B3FD690B27CBA2194 /* Sources */ = {
+		B18F92761B19C0136C2B9DCB0FE38398 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E654F0639E4FC3DEE1BEA8BB63F55745 /* BlueSocket-dummy.m in Sources */,
-				088322E81AC101AC449C5BBCEBE462DA /* Socket.swift in Sources */,
-				20ABA3F900EAFCE434322581110ADEF2 /* SocketProtocols.swift in Sources */,
-				2059D8B5FFE163E510E12C5A6A2E61F0 /* SocketUtils.swift in Sources */,
+				FB6AF56DBCC881DB2EAB4AAD1BDFBD24 /* Pods-SSDP-Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C1F61EB5D49CA477253E23BE6E8CE0A2 /* PBXTargetDependency */ = {
+		E2B28734A80BFC7FA18E4ECD0D28B6C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BlueSocket;
 			target = 9717BE7FCECEF299173A5D71C18B19F5 /* BlueSocket */;
-			targetProxy = 195562164894009B64158F855EA87CCB /* PBXContainerItemProxy */;
+			targetProxy = F59333EA614B3D3D6CA6005AA884D87B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		131356BE54884448CA49C07BEDF4BB2A /* Debug */ = {
+		142E2EBFB6403DB112CA493485C30D94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 561F1B364E187424B267A61A16756154 /* BlueSocket.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/BlueSocket/BlueSocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BlueSocket/BlueSocket-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BlueSocket/BlueSocket.modulemap";
+				PRODUCT_MODULE_NAME = Socket;
+				PRODUCT_NAME = Socket;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		169405B760AFAEF02F213568F0686A0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16FDF11F2F5DA96F470B0FE7A8AB07A4 /* BlueSocket.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/BlueSocket/BlueSocket-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BlueSocket/BlueSocket-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BlueSocket/BlueSocket.modulemap";
+				PRODUCT_MODULE_NAME = Socket;
+				PRODUCT_NAME = Socket;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2A2DA0B3AF4E170AF176DBC08142688B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0CC24A6F92CD5FF03CDD6E2F139A292F /* Pods-SSDP-Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2B9E26EAE2CD392AD762421F663075A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -331,6 +431,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -369,108 +470,11 @@
 			};
 			name = Debug;
 		};
-		78709B0B8EC4B4D78F8962446EA8F290 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 561F1B364E187424B267A61A16756154 /* BlueSocket.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/BlueSocket/BlueSocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BlueSocket/BlueSocket-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BlueSocket/BlueSocket.modulemap";
-				PRODUCT_MODULE_NAME = Socket;
-				PRODUCT_NAME = Socket;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		7B062A06D83164F360AC871114D7BC8C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0CC24A6F92CD5FF03CDD6E2F139A292F /* Pods-SSDP-Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SSDP-Example/Pods-SSDP-Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B75A236B175AE2DC54527020C34A4C60 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16FDF11F2F5DA96F470B0FE7A8AB07A4 /* BlueSocket.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/BlueSocket/BlueSocket-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BlueSocket/BlueSocket-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BlueSocket/BlueSocket.modulemap";
-				PRODUCT_MODULE_NAME = Socket;
-				PRODUCT_NAME = Socket;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		F090CD07A80273D5A73C8EA19224ADDB /* Release */ = {
+		63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -493,6 +497,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -520,19 +525,20 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		F3C14741EA8D7BC0E288B9B39757C31C /* Debug */ = {
+		740CEFB612E977DAF471546F9984F928 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE6B8A1A109D2B42CE34DBA1184DD372 /* Pods-SSDP-Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -563,29 +569,29 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		15A62871E5FF369DD8D5B9D4ED4CEB69 /* Build configuration list for PBXNativeTarget "Pods-SSDP-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				740CEFB612E977DAF471546F9984F928 /* Debug */,
+				2A2DA0B3AF4E170AF176DBC08142688B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				131356BE54884448CA49C07BEDF4BB2A /* Debug */,
-				F090CD07A80273D5A73C8EA19224ADDB /* Release */,
+				2B9E26EAE2CD392AD762421F663075A1 /* Debug */,
+				63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		87A03B7CDC3F58F8F7D420134806E925 /* Build configuration list for PBXNativeTarget "BlueSocket" */ = {
+		F3AAF744EA1BD42DDBAD1A3FC75571A1 /* Build configuration list for PBXNativeTarget "BlueSocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				78709B0B8EC4B4D78F8962446EA8F290 /* Debug */,
-				B75A236B175AE2DC54527020C34A4C60 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FE0719F13FE23B1B928D62196544A148 /* Build configuration list for PBXNativeTarget "Pods-SSDP-Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3C14741EA8D7BC0E288B9B39757C31C /* Debug */,
-				7B062A06D83164F360AC871114D7BC8C /* Release */,
+				142E2EBFB6403DB112CA493485C30D94 /* Debug */,
+				169405B760AFAEF02F213568F0686A0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
