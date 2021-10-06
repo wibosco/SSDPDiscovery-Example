@@ -13,7 +13,7 @@ enum SSDPSearchSessionError: Error {
     case searchAborted(Error)
 }
 
-protocol SSDPSearchSessionDelegate: class {
+protocol SSDPSearchSessionDelegate: AnyObject {
     func searchSession(_ searchSession: SSDPSearchSession, didFindService service: SSDPService)
     func searchSession(_ searchSession: SSDPSearchSession, didEncounterError error: SSDPSearchSessionError)
     func searchSessionDidStopSearch(_ searchSession: SSDPSearchSession, foundServices: [SSDPService])

@@ -55,9 +55,3 @@ extension Socket: UDPSocketProtocol {
         }
     }
 }
-
-//extension Socket {
-//    static func createUDPSocket() throws -> UDPSocketProtocol {
-//        return try Socket.create(type: .datagram, proto: .udp)
-//    }
-//}
