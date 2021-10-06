@@ -9,7 +9,7 @@
 import Foundation
 import os
 
-protocol UDPSocketControllerDelegate: class {
+protocol UDPSocketControllerDelegate: AnyObject {
     func controller(_ controller: UDPSocketControllerProtocol, didReceiveResponse response: Data)
     func controller(_ controller: UDPSocketControllerProtocol, didEncounterError error: Error)
 }
@@ -32,7 +32,7 @@ enum UDPSocketControllerState {
     }
 }
 
-protocol UDPSocketControllerProtocol: class {
+protocol UDPSocketControllerProtocol: AnyObject {
     var state: UDPSocketControllerState { get }
     var delegate: UDPSocketControllerDelegate? { get set }
     
