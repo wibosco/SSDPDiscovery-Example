@@ -116,7 +116,7 @@ class SSDPSearchSession: SSDPSearchSessionProtocol, UDPSocketControllerDelegate 
             let interval = window / TimeInterval((configuration.maximumBroadcastsBeforeClosing - 1))
             
             broadcastTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [weak self] (timer) in
-                self?.socketController.write(message: message)
+                self?.writeMessageToSocket(message)
             })
         }
         writeMessageToSocket(message)
